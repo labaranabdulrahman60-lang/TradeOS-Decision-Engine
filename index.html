@@ -97,7 +97,7 @@
 
 <div class="toast" id="toast"></div>
 
-<!-- ========== DASHBOARD ========== -->
+<!-- DASHBOARD -->
 <div class="page active" id="page-dashboard">
     <div class="card">
         <div class="flex-between mb-2"><span class="text-sm text-gray">NET WORTH</span></div>
@@ -140,7 +140,7 @@
     </div>
 </div>
 
-<!-- ========== DECISIONS ========== -->
+<!-- DECISIONS -->
 <div class="page" id="page-decisions">
     <div class="flex-between mb-3"><h2 class="text-lg font-bold">Decisions</h2><button class="btn btn-small btn-primary" onclick="openDecisionForm()">+ New</button></div>
     <div class="chip-row mb-3" id="decisionFilter">
@@ -152,25 +152,25 @@
     <div id="decisionList"></div>
 </div>
 
-<!-- ========== INVENTORY ========== -->
+<!-- INVENTORY -->
 <div class="page" id="page-inventory">
     <div class="flex-between mb-3"><h2 class="text-lg font-bold">Inventory</h2><button class="btn btn-small btn-primary" onclick="openInventoryForm()">+ Add</button></div>
     <div id="inventoryList"></div>
 </div>
 
-<!-- ========== DEAL JOURNAL ========== -->
+<!-- DEAL JOURNAL -->
 <div class="page" id="page-deals">
     <div class="flex-between mb-3"><h2 class="text-lg font-bold">Deal Journal</h2><button class="btn btn-small btn-primary" onclick="openDealForm()">+ New Deal</button></div>
     <div id="dealList"></div>
 </div>
 
-<!-- ========== WEEKLY REVIEW ========== -->
+<!-- WEEKLY REVIEW -->
 <div class="page" id="page-weekly">
     <div class="flex-between mb-3"><h2 class="text-lg font-bold">Weekly Review</h2><button class="btn btn-small btn-primary" onclick="openReviewForm()">+ This Week</button></div>
     <div id="reviewList"></div>
 </div>
 
-<!-- ========== EXPENSES ========== -->
+<!-- EXPENSES -->
 <div class="page" id="page-expenses">
     <div class="flex-between mb-3"><h2 class="text-lg font-bold">Expenses</h2><button class="btn btn-small btn-primary" onclick="openExpenseForm()">+ Log Expense</button></div>
     <div class="chip-row mb-3" id="expenseFilter">
@@ -184,7 +184,7 @@
     <div class="card mt-3"><span class="text-sm text-gray">THIS MONTH</span><div id="expenseSummary" class="mt-2"></div></div>
 </div>
 
-<!-- ========== CAPITAL ========== -->
+<!-- CAPITAL -->
 <div class="page" id="page-capital">
     <div class="flex-between mb-3"><h2 class="text-lg font-bold">Capital</h2><button class="btn btn-small btn-secondary" id="btnEditCapital" onclick="toggleCapitalEdit()">Edit</button></div>
     <div class="card" id="capitalView"><div class="text-xl font-bold mb-3" id="capitalNetWorth">₦0</div><div id="capitalFields"></div></div>
@@ -201,13 +201,13 @@
     </div>
 </div>
 
-<!-- ========== ANALYTICS ========== -->
+<!-- ANALYTICS -->
 <div class="page" id="page-analytics">
     <h2 class="text-lg font-bold mb-3">CEO Review</h2>
     <div id="analyticsContent"></div>
 </div>
 
-<!-- ========== SETTINGS ========== -->
+<!-- SETTINGS -->
 <div class="page" id="page-settings">
     <h2 class="text-lg font-bold mb-3">Settings</h2>
     <div class="card">
@@ -235,7 +235,7 @@
     </div>
 </div>
 
-<!-- ========== MODAL ========== -->
+<!-- MODAL -->
 <div class="modal" id="genericModal" style="display:none;">
     <div class="modal-content" id="genericModalContent"></div>
 </div>
@@ -261,7 +261,7 @@ let appData = {
 };
 function loadData(){const r=localStorage.getItem(STORAGE_KEY);if(r){try{const p=JSON.parse(r);appData={...appData,...p};}catch(e){}}}
 function saveData(){localStorage.setItem(STORAGE_KEY,JSON.stringify(appData));}
-function getNetWorth(){const c=appData.capital;return c.cash+c.emergencyFund+c.inventoryValue+c.receivables-c.payables;}
+function getNetWorth(){const c=appData.capital;return c.cash+c.emergencyFund+c.inventoryValue+c.receivables-c.payables+(appData.zubi?.balance||0);}
 function fmt(n){return '₦'+Number(n).toLocaleString();}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 function gId(){return 'id_'+Date.now()+'_'+Math.random().toString(36).substr(2,6);}
@@ -293,7 +293,6 @@ function renderDashboard(){
     document.getElementById('dashRecent').innerHTML=recent.length?recent.map(d=>`<div class="row-item"><div class="flex-between"><span class="rt">${d.title||d.pair||'Unknown'}</span></div><div class="rm">${d.date?.slice(0,10)||''} · ${d.status||d.result||'pending'}</div></div>`).join(''):'<p class="text-gray text-xs text-center">No activity yet</p>';
 }
 
-// ==================== ZUBI EDIT ====================
 function editZubi(){
     const modal=document.getElementById('genericModal');const content=document.getElementById('genericModalContent');
     content.innerHTML=`
@@ -309,7 +308,7 @@ function editZubi(){
 function saveZubi(){
     const g=(id)=>document.getElementById(id)?.value||'';const gn=(id)=>Number(document.getElementById(id)?.value)||0;
     appData.zubi={balance:gn('zubiBalance'),monthly:gn('zubiMonthly'),payout:gn('zubiPayout'),payoutMonth:g('zubiMonth')};
-    saveData();closeModal();renderDashboard();toast('Zubi updated');
+    saveData();closeModal();renderDashboard();renderCapital();toast('Zubi updated');
 }
 
 let decisionFilter='all';
@@ -514,12 +513,23 @@ function saveExpense(id){
 
 function renderCapital(){
     const c=appData.capital;
-    document.getElementById('capitalNetWorth').textContent=fmt(getNetWorth());
-    document.getElementById('capitalFields').innerHTML=Object.entries(c).map(([k,v])=>`<div class="flex-between text-sm mb-2"><span class="text-gray capitalize">${k.replace(/([A-Z])/g,' $1')}</span><span class="font-bold">${fmt(v)}</span></div>`).join('');
-    document.getElementById('capitalEditFields').innerHTML=Object.entries(c).map(([k,v])=>`<label class="mt-1 capitalize">${k.replace(/([A-Z])/g,' $1')}</label><input type="number" id="cap_${k}" value="${v}">`).join('');
+    const totalNW=getNetWorth();
+    document.getElementById('capitalNetWorth').textContent=fmt(totalNW);
+    let fieldsHTML='';
+    Object.entries(c).forEach(([k,v])=>{
+        fieldsHTML+=`<div class="flex-between text-sm mb-2"><span class="text-gray capitalize">${k.replace(/([A-Z])/g,' $1')}</span><span class="font-bold">${fmt(v)}</span></div>`;
+    });
+    fieldsHTML+=`<div class="flex-between text-sm mb-2"><span class="text-gray capitalize">Zubi Savings</span><span class="font-bold text-green">${fmt(appData.zubi?.balance||0)}</span></div>`;
+    fieldsHTML+=`<hr><div class="flex-between text-sm mb-2"><span class="text-gray font-bold">TOTAL NET WORTH</span><span class="font-bold" style="color:${totalNW>=0?'var(--green)':'var(--red)'}">${fmt(totalNW)}</span></div>`;
+    document.getElementById('capitalFields').innerHTML=fieldsHTML;
+    let editHTML='';
+    Object.entries(c).forEach(([k,v])=>{
+        editHTML+=`<label class="mt-1 capitalize">${k.replace(/([A-Z])/g,' $1')}</label><input type="number" id="cap_${k}" value="${v}">`;
+    });
+    document.getElementById('capitalEditFields').innerHTML=editHTML;
 }
 function toggleCapitalEdit(){const v=document.getElementById('capitalView'),e=document.getElementById('capitalEdit'),b=document.getElementById('btnEditCapital');if(e.style.display==='none'){v.style.display='none';e.style.display='block';b.textContent='Cancel';}else{v.style.display='block';e.style.display='none';b.textContent='Edit';renderCapital();}}
-function saveCapital(){const c=appData.capital;Object.keys(c).forEach(k=>{c[k]=Number(document.getElementById('cap_'+k)?.value)||0;});saveData();renderCapital();toggleCapitalEdit();toast('Capital updated');}
+function saveCapital(){const c=appData.capital;Object.keys(c).forEach(k=>{c[k]=Number(document.getElementById('cap_'+k)?.value)||0;});saveData();renderCapital();renderDashboard();toggleCapitalEdit();toast('Capital updated');}
 
 function renderAnalytics(){
     const completed=appData.decisions.filter(d=>d.status!=='pending');
