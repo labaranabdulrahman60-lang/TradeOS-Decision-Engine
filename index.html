@@ -5,120 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>TradeOS • Decision Engine</title>
+    <title>TradeOS • Labrahman Capital</title>
     <style>
         :root {
-            --bg: #000000;
-            --surface: #111111;
-            --surface2: #1a1a1a;
-            --border: #2a2a2a;
-            --text: #ffffff;
-            --text2: #888888;
-            --text3: #666666;
-            --blue: #3b82f6;
-            --blue-bg: rgba(59,130,246,0.1);
-            --green: #22c55e;
-            --green-bg: rgba(34,197,94,0.1);
-            --red: #ef4444;
-            --red-bg: rgba(239,68,68,0.1);
-            --yellow: #eab308;
-            --yellow-bg: rgba(234,179,8,0.1);
+            --bg: #000000; --surface: #111111; --surface2: #1a1a1a; --border: #2a2a2a;
+            --text: #ffffff; --text2: #888888; --text3: #666666;
+            --blue: #3b82f6; --blue-bg: rgba(59,130,246,0.1);
+            --green: #22c55e; --green-bg: rgba(34,197,94,0.1);
+            --red: #ef4444; --red-bg: rgba(239,68,68,0.1);
+            --yellow: #eab308; --yellow-bg: rgba(234,179,8,0.1);
+            --purple: #a855f7; --purple-bg: rgba(168,85,247,0.1);
             --radius: 10px;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 0 0 80px 0;
-            line-height: 1.5;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-font-smoothing: antialiased;
+            background:var(--bg); color:var(--text);
+            font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif;
+            max-width:500px; margin:0 auto; padding:0 0 90px 0; line-height:1.5;
+            -webkit-tap-highlight-color:transparent; -webkit-font-smoothing:antialiased;
         }
         header {
-            position: sticky; top: 0; z-index: 30;
-            background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border); padding: 12px 16px;
-            display: flex; align-items: center; justify-content: space-between;
+            position:sticky; top:0; z-index:30; background:rgba(0,0,0,0.9);
+            backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+            border-bottom:1px solid var(--border); padding:12px 16px;
+            display:flex; align-items:center; justify-content:space-between;
         }
-        header h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.3px; }
-        header h1 span { color: var(--blue); }
-        header .version { font-size: 0.65rem; color: var(--text3); font-weight: 500; }
-        nav {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border); display: flex; justify-content: space-around;
-            padding: 6px 4px 12px 4px; z-index: 30; max-width: 500px; margin: 0 auto;
+        header h1 { font-size:1.1rem; font-weight:700; letter-spacing:-0.3px; }
+        header h1 span { color:var(--blue); }
+        header .version { font-size:0.65rem; color:var(--text3); font-weight:500; }
+        .page { display:none; padding:16px; animation:fade 0.2s ease; }
+        .page.active { display:block; }
+        @keyframes fade { from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:translateY(0);} }
+        .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:14px; margin-bottom:10px; }
+        .stat-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+        .stat { background:var(--surface2); border-radius:8px; padding:12px; text-align:center; }
+        .stat .val { font-size:1.3rem; font-weight:700; letter-spacing:-0.3px; }
+        .stat .lbl { font-size:0.6rem; color:var(--text2); text-transform:uppercase; letter-spacing:0.5px; margin-top:2px; }
+        .btn { display:block; width:100%; padding:12px; border-radius:8px; border:none; font-weight:600; font-size:0.85rem; cursor:pointer; transition:0.15s; text-align:center; -webkit-tap-highlight-color:transparent; text-decoration:none; }
+        .btn:active { transform:scale(0.97); }
+        .btn-primary { background:var(--blue); color:#fff; }
+        .btn-secondary { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
+        .btn-danger { background:var(--red-bg); color:var(--red); border:1px solid rgba(239,68,68,0.3); }
+        .btn-small { display:inline-block; width:auto; padding:6px 12px; font-size:0.7rem; border-radius:6px; }
+        .btn-xs { display:inline-block; width:auto; padding:4px 8px; font-size:0.6rem; border-radius:4px; }
+        input,select,textarea {
+            width:100%; padding:10px 12px; background:var(--surface2); border:1px solid var(--border);
+            border-radius:6px; color:var(--text); font-size:0.85rem; font-family:inherit; -webkit-appearance:none;
         }
-        nav button {
-            background: none; border: none; color: var(--text3); font-size: 0.6rem; font-weight: 600;
-            cursor: pointer; padding: 6px 8px; border-radius: 6px;
-            display: flex; flex-direction: column; align-items: center; gap: 3px; transition: 0.15s;
-            -webkit-tap-highlight-color: transparent;
+        input:focus,select:focus,textarea:focus { outline:none; border-color:var(--blue); }
+        label { display:block; font-size:0.7rem; font-weight:600; color:var(--text2); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
+        .badge { display:inline-block; padding:3px 8px; border-radius:12px; font-size:0.65rem; font-weight:700; letter-spacing:0.3px; }
+        .badge-buy{background:var(--green-bg);color:var(--green);} .badge-wait{background:var(--yellow-bg);color:var(--yellow);}
+        .badge-reject{background:var(--red-bg);color:var(--red);} .badge-success{background:var(--green-bg);color:var(--green);}
+        .badge-failed{background:var(--red-bg);color:var(--red);} .badge-pending{background:var(--blue-bg);color:var(--blue);}
+        .badge-active{background:var(--purple-bg);color:var(--purple);}
+        .decision-row, .inventory-row, .expense-row, .deal-row {
+            background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:12px; margin-bottom:8px; cursor:pointer; transition:0.15s;
         }
-        nav button.active { color: var(--blue); }
-        nav button svg { width: 18px; height: 18px; }
-        .page { display: none; padding: 16px; animation: fade 0.2s ease; }
-        .page.active { display: block; }
-        @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-        .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 10px; }
-        .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .stat { background: var(--surface2); border-radius: 8px; padding: 12px; text-align: center; }
-        .stat .val { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.3px; }
-        .stat .lbl { font-size: 0.6rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
-        .btn { display: block; width: 100%; padding: 12px; border-radius: 8px; border: none; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: 0.15s; text-align: center; -webkit-tap-highlight-color: transparent; text-decoration: none; }
-        .btn:active { transform: scale(0.97); }
-        .btn-primary { background: var(--blue); color: #fff; }
-        .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-        .btn-danger { background: var(--red-bg); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
-        .btn-small { display: inline-block; width: auto; padding: 6px 12px; font-size: 0.7rem; border-radius: 6px; }
-        .btn-outline { background: transparent; border: 1px solid var(--blue); color: var(--blue); }
-        input, select, textarea {
-            width: 100%; padding: 10px 12px; background: var(--surface2); border: 1px solid var(--border);
-            border-radius: 6px; color: var(--text); font-size: 0.85rem; font-family: inherit; -webkit-appearance: none;
-        }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--blue); }
-        label { display: block; font-size: 0.7rem; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-        .badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.3px; }
-        .badge-buy { background: var(--green-bg); color: var(--green); }
-        .badge-wait { background: var(--yellow-bg); color: var(--yellow); }
-        .badge-reject { background: var(--red-bg); color: var(--red); }
-        .badge-success { background: var(--green-bg); color: var(--green); }
-        .badge-failed { background: var(--red-bg); color: var(--red); }
-        .badge-pending { background: var(--blue-bg); color: var(--blue); }
-        .decision-row { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 8px; cursor: pointer; transition: 0.15s; }
-        .decision-row:active { background: var(--surface); }
-        .decision-row .title { font-weight: 600; font-size: 0.9rem; }
-        .decision-row .meta { font-size: 0.7rem; color: var(--text2); margin-top: 2px; }
-        .flex-row { display: flex; gap: 8px; align-items: center; }
-        .flex-between { display: flex; justify-content: space-between; align-items: center; }
-        .mt-1 { margin-top: 4px; } .mt-2 { margin-top: 8px; } .mt-3 { margin-top: 12px; } .mt-4 { margin-top: 16px; }
-        .mb-2 { margin-bottom: 8px; } .mb-3 { margin-bottom: 12px; }
-        .text-green { color: var(--green); } .text-red { color: var(--red); } .text-blue { color: var(--blue); }
-        .text-gray { color: var(--text2); } .text-xs { font-size: 0.7rem; } .text-sm { font-size: 0.8rem; }
-        .text-lg { font-size: 1.1rem; } .text-xl { font-size: 1.5rem; } .font-bold { font-weight: 700; }
-        .text-center { text-align: center; } .w-full { width: 100%; }
-        hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
-        .range-wrap { display: flex; align-items: center; gap: 8px; }
-        .range-wrap input[type=range] { flex: 1; accent-color: var(--blue); }
-        .range-wrap span { font-weight: 700; font-size: 0.8rem; min-width: 32px; text-align: right; }
-        .chip-row { display: flex; gap: 6px; flex-wrap: wrap; }
-        .chip { padding: 5px 10px; border-radius: 14px; font-size: 0.65rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--surface2); color: var(--text2); }
-        .chip.active { background: var(--blue); color: #fff; border-color: var(--blue); }
-        .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); background: var(--surface2); border: 1px solid var(--border); padding: 10px 18px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; z-index: 50; pointer-events: none; opacity: 0; transition: opacity 0.3s; }
-        .toast.show { opacity: 1; }
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 40; display: flex; align-items: flex-start; justify-content: center; padding: 20px; overflow-y: auto; }
-        .modal-content { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; width: 100%; max-width: 460px; margin-top: 10px; }
-        .rule-box { background: var(--blue-bg); border: 1px solid rgba(59,130,246,0.3); border-radius: 8px; padding: 10px; margin-top: 4px; }
-        .rule-box .rule-title { color: var(--blue); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-        .rule-box .rule-body { font-size: 0.75rem; color: var(--text); margin-top: 2px; }
-        .link-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; color: var(--text); transition: 0.15s; }
-        .link-card:active { background: var(--surface); }
-        .link-card .link-icon { font-size: 1.2rem; }
-        .link-card .link-label { font-size: 0.8rem; font-weight: 600; }
-        .link-card .link-desc { font-size: 0.65rem; color: var(--text2); }
+        .decision-row:active,.inventory-row:active,.expense-row:active,.deal-row:active { background:var(--surface); }
+        .title { font-weight:600; font-size:0.9rem; }
+        .meta { font-size:0.7rem; color:var(--text2); margin-top:2px; }
+        .flex-row{display:flex;gap:8px;align-items:center;} .flex-between{display:flex;justify-content:space-between;align-items:center;}
+        .mt-1{margin-top:4px;} .mt-2{margin-top:8px;} .mt-3{margin-top:12px;} .mt-4{margin-top:16px;}
+        .mb-2{margin-bottom:8px;} .mb-3{margin-bottom:12px;}
+        .text-green{color:var(--green);} .text-red{color:var(--red);} .text-blue{color:var(--blue);} .text-purple{color:var(--purple);}
+        .text-gray{color:var(--text2);} .text-xs{font-size:0.7rem;} .text-sm{font-size:0.8rem;} .text-lg{font-size:1.1rem;} .text-xl{font-size:1.5rem;}
+        .font-bold{font-weight:700;} .text-center{text-align:center;} .w-full{width:100%;}
+        hr{border:none;border-top:1px solid var(--border);margin:12px 0;}
+        .range-wrap{display:flex;align-items:center;gap:8px;}
+        .range-wrap input[type=range]{flex:1;accent-color:var(--blue);}
+        .range-wrap span{font-weight:700;font-size:0.8rem;min-width:32px;text-align:right;}
+        .chip-row{display:flex;gap:6px;flex-wrap:wrap;}
+        .chip{padding:5px 10px;border-radius:14px;font-size:0.65rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--text2);}
+        .chip.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+        .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--surface2);border:1px solid var(--border);padding:10px 18px;border-radius:20px;font-size:0.8rem;font-weight:600;z-index:50;pointer-events:none;opacity:0;transition:opacity 0.3s;}
+        .toast.show{opacity:1;}
+        .modal{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:40;display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
+        .modal-content{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;width:100%;max-width:460px;margin-top:10px;}
+        .rule-box{background:var(--blue-bg);border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px;margin-top:4px;}
+        .rule-box .rule-title{color:var(--blue);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
+        .rule-box .rule-body{font-size:0.75rem;color:var(--text);margin-top:2px;}
+        .table-row{display:grid;gap:4px;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.7rem;align-items:center;}
+        .table-header{color:var(--text2);font-weight:700;text-transform:uppercase;font-size:0.6rem;letter-spacing:0.3px;}
+        nav{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;overflow-x:auto;padding:6px 4px 12px 4px;z-index:30;max-width:500px;margin:0 auto;scrollbar-width:none;}
+        nav::-webkit-scrollbar{display:none;}
+        nav button{background:none;border:none;color:var(--text3);font-size:0.55rem;font-weight:600;cursor:pointer;padding:6px 5px;border-radius:6px;display:flex;flex-direction:column;align-items:center;gap:3px;transition:0.15s;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
+        nav button.active{color:var(--blue);}
+        nav button svg{width:16px;height:16px;}
+        .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
+        .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;}
+        .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+        .review-box{background:var(--surface2);border-radius:8px;padding:10px;margin-bottom:8px;}
+        .review-box .review-title{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:4px;}
     </style>
 </head>
 <body>
@@ -128,10 +106,9 @@
     <span class="version">Labrahman Capital</span>
 </header>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- DASHBOARD -->
+<!-- ========== DASHBOARD ========== -->
 <div class="page active" id="page-dashboard">
     <div class="card">
         <div class="flex-between mb-2"><span class="text-sm text-gray">NET WORTH</span></div>
@@ -140,59 +117,42 @@
             <div class="stat"><div class="val" id="dashCash">₦0</div><div class="lbl">Cash</div></div>
             <div class="stat"><div class="val" id="dashEmergency">₦0</div><div class="lbl">Emergency</div></div>
             <div class="stat"><div class="val" id="dashInventory">₦0</div><div class="lbl">Inventory</div></div>
-            <div class="stat"><div class="val" id="dashOwed">₦0</div><div class="lbl">Owed to Me</div></div>
+            <div class="stat"><div class="val" id="dashOwed">₦0</div><div class="lbl">Receivables</div></div>
         </div>
     </div>
-
-    <!-- ZUBI & SAVINGS CARD -->
     <div class="card">
-        <div class="flex-between mb-2"><span class="text-sm text-gray">ZUBI SAVINGS</span><span class="text-xs text-green">Active</span></div>
-        <div class="text-lg font-bold">₦45,000</div>
+        <div class="flex-between mb-2"><span class="text-sm text-gray">ZUBI SAVINGS</span><span class="badge badge-active">Active</span></div>
+        <div class="text-lg font-bold" id="dashZubi">₦45,000</div>
         <div class="text-xs text-gray mt-1">Monthly: ₦20,000 · Payout: ₦200,000 in August</div>
     </div>
-
     <div class="card">
         <div class="flex-between mb-2"><span class="text-sm text-gray">DECISIONS</span></div>
         <div class="stat-row">
             <div class="stat"><div class="val text-blue" id="dashOpen">0</div><div class="lbl">Open</div></div>
             <div class="stat"><div class="val text-green" id="dashSuccess">0</div><div class="lbl">Success</div></div>
             <div class="stat"><div class="val text-red" id="dashFailed">0</div><div class="lbl">Failed</div></div>
-            <div class="stat"><div class="val" id="dashMonthPL" style="color:var(--text);">₦0</div><div class="lbl">Month P&L</div></div>
+            <div class="stat"><div class="val" id="dashMonthPL">₦0</div><div class="lbl">Month P&L</div></div>
         </div>
     </div>
-
-    <!-- JUNE MISSION -->
     <div class="card">
         <span class="text-sm text-gray">JUNE MISSION</span>
         <ol class="text-xs mt-2" style="padding-left:16px;color:var(--text2);line-height:1.8;">
             <li>Repair or liquidate the broken iPhone 12</li>
-            <li>Resolve the 11 Pro Max issue professionally</li>
             <li>Create content consistently</li>
             <li>Grow TikTok trust</li>
             <li>Reach ₦120k sourcing capital</li>
             <li>Keep Zubi active</li>
-            <li>Trade only A+ setups</li>
         </ol>
     </div>
-
-    <!-- QUICK LINK TO CAPITAL SYSTEM -->
-    <a class="link-card mb-2" href="https://github.com/labaranabdulrahman60-lang/TradeOS-V1" target="_blank">
-        <span class="link-icon">📋</span>
-        <div><div class="link-label">Labrahman Capital System</div><div class="link-desc">Weekly journal, deal tracker, expense log</div></div>
-    </a>
-
     <div class="card">
-        <span class="text-sm text-gray">RECENT DECISIONS</span>
-        <div id="dashRecent" class="mt-2"><p class="text-gray text-xs text-center">No decisions yet</p></div>
+        <span class="text-sm text-gray">RECENT</span>
+        <div id="dashRecent" class="mt-2"><p class="text-gray text-xs text-center">No activity yet</p></div>
     </div>
 </div>
 
-<!-- DECISIONS PAGE -->
+<!-- ========== DECISIONS ========== -->
 <div class="page" id="page-decisions">
-    <div class="flex-between mb-3">
-        <h2 class="text-lg font-bold">Decisions</h2>
-        <button class="btn btn-small btn-primary" onclick="openDecisionForm()">+ New</button>
-    </div>
+    <div class="flex-between mb-3"><h2 class="text-lg font-bold">Decisions</h2><button class="btn btn-small btn-primary" onclick="openDecisionForm()">+ New</button></div>
     <div class="chip-row mb-3" id="decisionFilter">
         <span class="chip active" onclick="filterDecisions('all')">All</span>
         <span class="chip" onclick="filterDecisions('pending')">Pending</span>
@@ -202,29 +162,48 @@
     <div id="decisionList"></div>
 </div>
 
-<!-- CAPITAL PAGE -->
+<!-- ========== INVENTORY ========== -->
+<div class="page" id="page-inventory">
+    <div class="flex-between mb-3"><h2 class="text-lg font-bold">Inventory</h2><button class="btn btn-small btn-primary" onclick="openInventoryForm()">+ Add</button></div>
+    <div id="inventoryList"></div>
+</div>
+
+<!-- ========== DEAL JOURNAL ========== -->
+<div class="page" id="page-deals">
+    <div class="flex-between mb-3"><h2 class="text-lg font-bold">Deal Journal</h2><button class="btn btn-small btn-primary" onclick="openDealForm()">+ New Deal</button></div>
+    <div id="dealList"></div>
+</div>
+
+<!-- ========== WEEKLY REVIEW ========== -->
+<div class="page" id="page-weekly">
+    <div class="flex-between mb-3"><h2 class="text-lg font-bold">Weekly Review</h2><button class="btn btn-small btn-primary" onclick="openReviewForm()">+ This Week</button></div>
+    <div id="reviewList"></div>
+</div>
+
+<!-- ========== EXPENSES ========== -->
+<div class="page" id="page-expenses">
+    <div class="flex-between mb-3"><h2 class="text-lg font-bold">Expenses</h2><button class="btn btn-small btn-primary" onclick="openExpenseForm()">+ Log Expense</button></div>
+    <div class="chip-row mb-3" id="expenseFilter">
+        <span class="chip active" onclick="filterExpenses('all')">All</span>
+        <span class="chip" onclick="filterExpenses('food')">Food</span>
+        <span class="chip" onclick="filterExpenses('transport')">Transport</span>
+        <span class="chip" onclick="filterExpenses('data')">Data</span>
+        <span class="chip" onclick="filterExpenses('random')">Random</span>
+    </div>
+    <div id="expenseList"></div>
+    <div class="card mt-3"><span class="text-sm text-gray">THIS MONTH</span><div id="expenseSummary" class="mt-2"></div></div>
+</div>
+
+<!-- ========== CAPITAL ========== -->
 <div class="page" id="page-capital">
-    <div class="flex-between mb-3">
-        <h2 class="text-lg font-bold">Capital</h2>
-        <button class="btn btn-small btn-secondary" id="btnEditCapital" onclick="toggleCapitalEdit()">Edit</button>
-    </div>
-    <div class="card" id="capitalView">
-        <div class="text-xl font-bold mb-3" id="capitalNetWorth">₦0</div>
-        <div id="capitalFields"></div>
-    </div>
-    <div class="card" id="capitalEdit" style="display:none;">
-        <div id="capitalEditFields"></div>
-        <button class="btn btn-primary mt-3" onclick="saveCapital()">Save</button>
-    </div>
-    <!-- ALLOCATION RULE -->
+    <div class="flex-between mb-3"><h2 class="text-lg font-bold">Capital</h2><button class="btn btn-small btn-secondary" id="btnEditCapital" onclick="toggleCapitalEdit()">Edit</button></div>
+    <div class="card" id="capitalView"><div class="text-xl font-bold mb-3" id="capitalNetWorth">₦0</div><div id="capitalFields"></div></div>
+    <div class="card" id="capitalEdit" style="display:none;"><div id="capitalEditFields"></div><button class="btn btn-primary mt-3" onclick="saveCapital()">Save</button></div>
     <div class="card mt-3">
         <span class="text-sm text-gray">CASH ALLOCATION RULE</span>
-        <div class="rule-box mt-2">
-            <div class="rule-title">THE PRINCIPLE</div>
-            <div class="rule-body">"When cash hits your hand, allocate it immediately. Before deals go wrong. Before emergencies arise. Before your brain has time to negotiate with itself."</div>
-        </div>
+        <div class="rule-box mt-2"><div class="rule-title">THE PRINCIPLE</div><div class="rule-body">"When cash hits your hand, allocate it immediately."</div></div>
         <div class="stat-row mt-2">
-            <div class="stat"><div class="val text-blue">50%</div><div class="lbl">Business Capital</div></div>
+            <div class="stat"><div class="val text-blue">50%</div><div class="lbl">Business</div></div>
             <div class="stat"><div class="val">20%</div><div class="lbl">Survival</div></div>
             <div class="stat"><div class="val">20%</div><div class="lbl">Savings</div></div>
             <div class="stat"><div class="val">10%</div><div class="lbl">Buffer</div></div>
@@ -232,20 +211,13 @@
     </div>
 </div>
 
-<!-- JOURNAL PAGE -->
-<div class="page" id="page-journal">
-    <h2 class="text-lg font-bold mb-3">Journal</h2>
-    <input type="text" placeholder="Search lessons, mistakes, decisions..." id="journalSearch" oninput="renderJournal()" class="mb-3">
-    <div id="journalList"></div>
-</div>
-
-<!-- ANALYTICS PAGE -->
+<!-- ========== ANALYTICS ========== -->
 <div class="page" id="page-analytics">
-    <h2 class="text-lg font-bold mb-3">Analytics</h2>
+    <h2 class="text-lg font-bold mb-3">CEO Review</h2>
     <div id="analyticsContent"></div>
 </div>
 
-<!-- SETTINGS PAGE -->
+<!-- ========== SETTINGS ========== -->
 <div class="page" id="page-settings">
     <h2 class="text-lg font-bold mb-3">Settings</h2>
     <div class="card">
@@ -253,23 +225,16 @@
         <button class="btn btn-secondary mb-2" onclick="document.getElementById('importFile').click()">📤 Import Data</button>
         <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importData(event)">
         <p class="text-xs text-gray" id="backupNote"></p>
-        <hr>
-        <button class="btn btn-danger" onclick="resetAll()">🗑 Reset All Data</button>
+        <hr><button class="btn btn-danger" onclick="resetAll()">🗑 Reset All</button>
     </div>
-    <!-- NON-NEGOTIABLE RULES -->
     <div class="card mt-3">
-        <span class="text-sm text-gray">NON-NEGOTIABLE RULES</span>
+        <span class="text-sm text-gray">NON-NEGOTIABLE</span>
         <ul class="text-xs mt-2" style="list-style:none;padding:0;color:var(--red);line-height:1.8;">
-            <li>🚫 Protect capital</li>
-            <li>🚫 Stay disciplined</li>
-            <li>🚫 No fantasy spending</li>
-            <li>🚫 No revenge trading</li>
-            <li>🚫 No bad inventory</li>
+            <li>🚫 Protect capital</li><li>🚫 Stay disciplined</li><li>🚫 No fantasy spending</li><li>🚫 No revenge trading</li><li>🚫 No bad inventory</li>
         </ul>
     </div>
-    <!-- PRINCIPLES -->
     <div class="card mt-3">
-        <span class="text-sm text-gray">TRADEOS PRINCIPLES</span>
+        <span class="text-sm text-gray">PRINCIPLES</span>
         <ul class="text-xs text-gray mt-2" style="list-style:none;padding:0;">
             <li>• What data supports this decision?</li>
             <li>• Can I survive the worst-case outcome?</li>
@@ -280,293 +245,357 @@
     </div>
 </div>
 
-<!-- DECISION FORM MODAL -->
-<div class="modal" id="decisionModal" style="display:none;">
-    <div class="modal-content">
-        <div class="flex-between mb-3">
-            <h3 class="font-bold" id="modalTitle">New Decision</h3>
-            <button onclick="closeDecisionForm()" style="background:none;border:none;color:var(--text2);font-size:1.5rem;cursor:pointer;">×</button>
-        </div>
-        <div id="decisionFormFields"></div>
-        <button class="btn btn-primary mt-3" onclick="saveDecision()">Save Decision</button>
-    </div>
+<!-- ========== MODALS ========== -->
+<div class="modal" id="genericModal" style="display:none;">
+    <div class="modal-content" id="genericModalContent"></div>
 </div>
 
-<nav>
-    <button class="active" data-page="dashboard" onclick="showPage('dashboard')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-        Dashboard
-    </button>
-    <button data-page="decisions" onclick="showPage('decisions')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        Decisions
-    </button>
-    <button data-page="capital" onclick="showPage('capital')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-        Capital
-    </button>
-    <button data-page="journal" onclick="showPage('journal')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-        Journal
-    </button>
-    <button data-page="analytics" onclick="showPage('analytics')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        Analytics
-    </button>
-    <button data-page="settings" onclick="showPage('settings')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-        Settings
-    </button>
+<nav id="mainNav">
+    <button class="active" data-page="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Home</button>
+    <button data-page="decisions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Decide</button>
+    <button data-page="inventory"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>Stock</button>
+    <button data-page="deals"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Deals</button>
+    <button data-page="weekly"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Review</button>
+    <button data-page="expenses"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Costs</button>
+    <button data-page="capital"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>Capital</button>
+    <button data-page="analytics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>CEO</button>
+    <button data-page="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2"/></svg>More</button>
 </nav>
 
 <script>
 // ==================== DATA ENGINE ====================
-const STORAGE_KEY = 'tradeos_decision_v1';
+const STORAGE_KEY = 'tradeos_labrahman_v1';
 let appData = {
-    capital: { cash: 0, emergencyFund: 0, inventoryValue: 10000, receivables: 43000, payables: 0 },
+    capital: { cash:0, emergencyFund:0, inventoryValue:10000, receivables:43000, payables:0 },
+    zubi: { balance:45000, monthly:20000, payout:200000, payoutMonth:'August 2026' },
     decisions: [],
-    lastBackup: null,
-    zubiBalance: 45000,
-    zubiMonthly: 20000,
-    zubiPayout: 200000,
-    zubiPayoutMonth: 'August 2026'
+    inventory: [],
+    deals: [],
+    reviews: [],
+    expenses: [],
+    lastBackup: null
 };
-function loadData() {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) { try { const p = JSON.parse(raw); appData = { ...appData, ...p }; } catch(e) {} }
+function loadData(){const r=localStorage.getItem(STORAGE_KEY);if(r){try{const p=JSON.parse(r);appData={...appData,...p};}catch(e){}}}
+function saveData(){localStorage.setItem(STORAGE_KEY,JSON.stringify(appData));}
+function getNetWorth(){const c=appData.capital;return c.cash+c.emergencyFund+c.inventoryValue+c.receivables-c.payables;}
+function fmt(n){return '₦'+Number(n).toLocaleString();}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+function gId(){return 'id_'+Date.now()+'_'+Math.random().toString(36).substr(2,6);}
+function showPage(page){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('#mainNav button').forEach(b=>b.classList.remove('active'));
+    const pg=document.getElementById('page-'+page);if(pg)pg.classList.add('active');
+    const btn=document.querySelector(`#mainNav button[data-page="${page}"]`);if(btn)btn.classList.add('active');
+    if(page==='dashboard')renderDashboard();
+    if(page==='decisions')renderDecisions();
+    if(page==='inventory')renderInventory();
+    if(page==='deals')renderDeals();
+    if(page==='weekly')renderReviews();
+    if(page==='expenses')renderExpenses();
+    if(page==='capital')renderCapital();
+    if(page==='analytics')renderAnalytics();
+    if(page==='settings')renderSettings();
 }
-function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(appData)); }
-function getNetWorth() { const c = appData.capital; return c.cash + c.emergencyFund + c.inventoryValue + c.receivables - c.payables; }
-function fmt(n) { return '₦' + Number(n).toLocaleString(); }
-function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200); }
-function generateId() { return 'dec_' + Date.now() + '_' + Math.random().toString(36).substr(2,6); }
-
-// ==================== NAVIGATION ====================
-function showPage(page) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-    document.getElementById('page-' + page).classList.add('active');
-    document.querySelector(`nav button[data-page="${page}"]`).classList.add('active');
-    if (page === 'dashboard') renderDashboard();
-    if (page === 'decisions') renderDecisions();
-    if (page === 'capital') renderCapital();
-    if (page === 'journal') renderJournal();
-    if (page === 'analytics') renderAnalytics();
-    if (page === 'settings') renderSettings();
-}
+document.getElementById('mainNav').addEventListener('click',function(e){const b=e.target.closest('button');if(b&&b.dataset.page)showPage(b.dataset.page);});
 
 // ==================== DASHBOARD ====================
-function renderDashboard() {
-    const c = appData.capital;
-    document.getElementById('dashNetWorth').textContent = fmt(getNetWorth());
-    document.getElementById('dashCash').textContent = fmt(c.cash);
-    document.getElementById('dashEmergency').textContent = fmt(c.emergencyFund);
-    document.getElementById('dashInventory').textContent = fmt(c.inventoryValue);
-    document.getElementById('dashOwed').textContent = fmt(c.receivables);
-    const open = appData.decisions.filter(d => d.status === 'pending').length;
-    const success = appData.decisions.filter(d => d.status === 'successful').length;
-    const failed = appData.decisions.filter(d => d.status === 'failed').length;
-    document.getElementById('dashOpen').textContent = open;
-    document.getElementById('dashSuccess').textContent = success;
-    document.getElementById('dashFailed').textContent = failed;
-    const now = new Date(); const thisMonth = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0');
-    const monthPL = appData.decisions.filter(d => d.date && d.date.startsWith(thisMonth) && d.status !== 'pending')
-        .reduce((s,d) => s + (d.actualProfit || 0) - (d.actualLoss || 0), 0);
-    const plEl = document.getElementById('dashMonthPL');
-    plEl.textContent = (monthPL >= 0 ? '+' : '') + fmt(monthPL);
-    plEl.style.color = monthPL >= 0 ? 'var(--green)' : 'var(--red)';
-    const recent = [...appData.decisions].slice(-3).reverse();
-    document.getElementById('dashRecent').innerHTML = recent.length ? recent.map(d => `
-        <div class="decision-row" onclick="openDecisionForm('${d.id}')">
-            <div class="flex-between"><span class="title">${d.title}</span><span class="badge badge-${d.finalDecision==='BUY'?'buy':d.finalDecision==='WAIT'?'wait':'reject'}">${d.finalDecision}</span></div>
-            <div class="meta">${d.status} · ${fmt(d.capitalRequired)} · ${d.category}</div>
-        </div>`).join('') : '<p class="text-gray text-xs text-center">No decisions yet</p>';
+function renderDashboard(){
+    const c=appData.capital;
+    document.getElementById('dashNetWorth').textContent=fmt(getNetWorth());
+    document.getElementById('dashCash').textContent=fmt(c.cash);
+    document.getElementById('dashEmergency').textContent=fmt(c.emergencyFund);
+    document.getElementById('dashInventory').textContent=fmt(c.inventoryValue);
+    document.getElementById('dashOwed').textContent=fmt(c.receivables);
+    document.getElementById('dashZubi').textContent=fmt(appData.zubi.balance);
+    const open=appData.decisions.filter(d=>d.status==='pending').length;
+    const success=appData.decisions.filter(d=>d.status==='successful').length;
+    const failed=appData.decisions.filter(d=>d.status==='failed').length;
+    document.getElementById('dashOpen').textContent=open;
+    document.getElementById('dashSuccess').textContent=success;
+    document.getElementById('dashFailed').textContent=failed;
+    const now=new Date();const tm=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+    const mpl=appData.decisions.filter(d=>d.date&&d.date.startsWith(tm)&&d.status!=='pending').reduce((s,d)=>s+(d.actualProfit||0)-(d.actualLoss||0),0);
+    const plEl=document.getElementById('dashMonthPL');plEl.textContent=(mpl>=0?'+':'')+fmt(mpl);plEl.style.color=mpl>=0?'var(--green)':'var(--red)';
+    const recent=[...appData.decisions,...appData.deals.map(d=>({...d,title:'Deal: '+d.customer}))].sort((a,b)=>new Date(b.date||0)-new Date(a.date||0)).slice(0,3);
+    document.getElementById('dashRecent').innerHTML=recent.length?recent.map(d=>`<div class="decision-row"><div class="flex-between"><span class="title">${d.title||d.pair||'Unknown'}</span></div><div class="meta">${d.date?.slice(0,10)||''} · ${d.status||d.result||'pending'}</div></div>`).join(''):'<p class="text-gray text-xs text-center">No activity yet</p>';
 }
 
 // ==================== DECISIONS ====================
-function filterDecisions(f) { currentFilter = f; renderDecisions(); }
-function renderDecisions() {
-    const filtered = appData.decisions.filter(d => currentFilter === 'all' ? true : d.status === currentFilter);
-    document.querySelectorAll('#decisionFilter .chip').forEach(c => c.classList.remove('active'));
-    const activeChip = document.querySelector(`#decisionFilter .chip[onclick="filterDecisions('${currentFilter}')"]`);
-    if (activeChip) activeChip.classList.add('active');
-    document.getElementById('decisionList').innerHTML = filtered.length ? filtered.map(d => `
+let decisionFilter='all';
+function filterDecisions(f){decisionFilter=f;renderDecisions();}
+function renderDecisions(){
+    const filtered=appData.decisions.filter(d=>decisionFilter==='all'?true:d.status===decisionFilter);
+    document.querySelectorAll('#decisionFilter .chip').forEach(c=>c.classList.remove('active'));
+    const ac=document.querySelector(`#decisionFilter .chip[onclick="filterDecisions('${decisionFilter}')"]`);if(ac)ac.classList.add('active');
+    document.getElementById('decisionList').innerHTML=filtered.length?filtered.map(d=>`
         <div class="decision-row" onclick="openDecisionForm('${d.id}')">
             <div class="flex-between"><span class="title">${d.title}</span><span class="badge badge-${d.finalDecision==='BUY'?'buy':d.finalDecision==='WAIT'?'wait':'reject'}">${d.finalDecision}</span></div>
-            <div class="meta">${d.status} · ${fmt(d.capitalRequired)} · ${d.category} · ${d.date?.slice(0,10) || 'N/A'}</div>
-            ${d.actualProfit ? `<div class="text-green text-xs mt-1">+${fmt(d.actualProfit)} profit</div>` : ''}
-            ${d.actualLoss ? `<div class="text-red text-xs mt-1">-${fmt(d.actualLoss)} loss</div>` : ''}
-        </div>`).join('') : '<p class="text-gray text-xs text-center">No decisions</p>';
+            <div class="meta">${d.status} · ${fmt(d.capitalRequired)} · ${d.category} · ${d.date?.slice(0,10)||''}</div>
+            ${d.actualProfit?`<div class="text-green text-xs mt-1">+${fmt(d.actualProfit)}</div>`:''}${d.actualLoss?`<div class="text-red text-xs mt-1">-${fmt(d.actualLoss)}</div>`:''}
+        </div>`).join(''):'<p class="text-gray text-xs text-center">No decisions</p>';
 }
-
-// ==================== DECISION FORM ====================
-let currentFilter = 'all';
-let editingDecisionId = null;
-function openDecisionForm(id) {
-    editingDecisionId = id || null;
-    const d = id ? appData.decisions.find(x => x.id === id) : null;
-    document.getElementById('modalTitle').textContent = d ? 'Edit Decision' : 'New Decision';
-    const fields = document.getElementById('decisionFormFields');
-    const data = d || { title:'', category:'inventory', capitalRequired:0, expectedSellingPrice:0, expectedProfit:0, maximumLoss:0, expectedHoldingTime:'', riskLevel:'medium', confidenceScore:50, supplierTrusted:false, buyerAvailable:false, evidence:'', worstCase:'', recoveryPlan:'', finalDecision:'WAIT', status:'pending', lessonLearned:'', mistakes:'', whatToRepeat:'' };
-    fields.innerHTML = `
-        <label>Decision Title *</label><input type="text" id="dfTitle" value="${data.title}" placeholder="e.g., Buy iPhone X for resale">
-        <label class="mt-2">Category</label>
-        <select id="dfCategory">
-            <option value="inventory" ${data.category==='inventory'?'selected':''}>📦 Inventory (Phone sourcing/flipping)</option>
-            <option value="brokerage" ${data.category==='brokerage'?'selected':''}>🤝 Brokerage (Middleman deals)</option>
-            <option value="trading" ${data.category==='trading'?'selected':''}>📈 Trading (A+ setups only)</option>
-            <option value="content" ${data.category==='content'?'selected':''}>📱 Content (TikTok/Instagram)</option>
-            <option value="savings" ${data.category==='savings'?'selected':''}>🏦 Savings (Zubi/Emergency)</option>
-            <option value="other" ${data.category==='other'?'selected':''}>📋 Other</option>
-        </select>
-        <div class="stat-row mt-2"><div><label>Capital Required</label><input type="number" id="dfCapital" value="${data.capitalRequired}"></div><div><label>Expected Sell Price</label><input type="number" id="dfSellPrice" value="${data.expectedSellingPrice}"></div></div>
-        <div class="stat-row mt-2"><div><label>Expected Profit</label><input type="number" id="dfProfit" value="${data.expectedProfit}" readonly style="opacity:0.7;"></div><div><label>Maximum Loss</label><input type="number" id="dfMaxLoss" value="${data.maximumLoss}"></div></div>
-        <div class="stat-row mt-2"><div><label>Holding Time</label><input type="text" id="dfHoldingTime" value="${data.expectedHoldingTime}" placeholder="e.g., 2 weeks"></div><div><label>Risk Level</label><select id="dfRisk">${['low','medium','high','critical'].map(r => `<option ${data.riskLevel===r?'selected':''}>${r}</option>`).join('')}</select></div></div>
-        <label class="mt-2">Confidence Score: <span id="dfConfLabel">${data.confidenceScore}%</span></label>
+let editingDecisionId=null;
+function openDecisionForm(id){
+    editingDecisionId=id||null;const d=id?appData.decisions.find(x=>x.id===id):null;
+    const modal=document.getElementById('genericModal');const content=document.getElementById('genericModalContent');
+    const data=d||{title:'',category:'inventory',capitalRequired:0,expectedSellingPrice:0,expectedProfit:0,maximumLoss:0,expectedHoldingTime:'',riskLevel:'medium',confidenceScore:50,supplierTrusted:false,buyerAvailable:false,evidence:'',worstCase:'',recoveryPlan:'',finalDecision:'WAIT',status:'pending',lessonLearned:'',mistakes:'',whatToRepeat:''};
+    content.innerHTML=`
+        <div class="flex-between mb-3"><h3 class="font-bold">${d?'Edit':'New'} Decision</h3><button onclick="closeModal()" style="background:none;border:none;color:var(--text2);font-size:1.5rem;cursor:pointer;">×</button></div>
+        <label>Title *</label><input type="text" id="dfTitle" value="${data.title}">
+        <label class="mt-2">Category</label><select id="dfCategory">${['inventory','brokerage','trading','content','savings','other'].map(c=>`<option ${data.category===c?'selected':''}>${c}</option>`).join('')}</select>
+        <div class="grid-2 mt-2"><div><label>Capital Required</label><input type="number" id="dfCapital" value="${data.capitalRequired}"></div><div><label>Expected Sell</label><input type="number" id="dfSellPrice" value="${data.expectedSellingPrice}"></div></div>
+        <div class="grid-2 mt-2"><div><label>Expected Profit</label><input type="number" id="dfProfit" value="${data.expectedProfit}" readonly style="opacity:0.7;"></div><div><label>Max Loss</label><input type="number" id="dfMaxLoss" value="${data.maximumLoss}"></div></div>
+        <div class="grid-2 mt-2"><div><label>Holding Time</label><input type="text" id="dfHoldingTime" value="${data.expectedHoldingTime}"></div><div><label>Risk</label><select id="dfRisk">${['low','medium','high','critical'].map(r=>`<option ${data.riskLevel===r?'selected':''}>${r}</option>`).join('')}</select></div></div>
+        <label class="mt-2">Confidence: <span id="dfConfLabel">${data.confidenceScore}%</span></label>
         <div class="range-wrap"><span>0</span><input type="range" id="dfConfidence" min="0" max="100" value="${data.confidenceScore}" oninput="document.getElementById('dfConfLabel').textContent=this.value+'%'"><span>100</span></div>
-        <div class="flex-row mt-2"><label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="dfSupplier" ${data.supplierTrusted?'checked':''}> Supplier Trusted</label><label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="dfBuyer" ${data.buyerAvailable?'checked':''}> Buyer Confirmed</label></div>
-        <label class="mt-2">Evidence</label><textarea id="dfEvidence" rows="2" placeholder="What data supports this?">${data.evidence||''}</textarea>
-        <label class="mt-2">Worst Case Scenario</label><textarea id="dfWorstCase" rows="2" placeholder="Can I survive this?">${data.worstCase||''}</textarea>
-        <label class="mt-2">Recovery Plan</label><textarea id="dfRecovery" rows="2" placeholder="If this fails, how do I recover?">${data.recoveryPlan||''}</textarea>
+        <div class="flex-row mt-2"><label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="dfSupplier" ${data.supplierTrusted?'checked':''}> Supplier</label><label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="dfBuyer" ${data.buyerAvailable?'checked':''}> Buyer</label></div>
+        <label class="mt-2">Evidence</label><textarea id="dfEvidence" rows="2">${data.evidence||''}</textarea>
+        <label class="mt-2">Worst Case</label><textarea id="dfWorstCase" rows="2">${data.worstCase||''}</textarea>
+        <label class="mt-2">Recovery Plan</label><textarea id="dfRecovery" rows="2">${data.recoveryPlan||''}</textarea>
         <label class="mt-2">Final Decision</label>
         <div class="chip-row" id="dfFinalBtns">
             <span class="chip ${data.finalDecision==='BUY'?'active':''}" onclick="setFinal('BUY')">BUY</span>
             <span class="chip ${data.finalDecision==='WAIT'?'active':''}" onclick="setFinal('WAIT')">WAIT</span>
             <span class="chip ${data.finalDecision==='REJECT'?'active':''}" onclick="setFinal('REJECT')">REJECT</span>
         </div>
-        ${d ? `
-        <hr>
-        <label>Status</label><select id="dfStatus">${['pending','successful','failed','cancelled'].map(s => `<option ${data.status===s?'selected':''}>${s}</option>`).join('')}</select>
-        <div class="stat-row mt-2"><div><label>Actual Profit</label><input type="number" id="dfActualProfit" value="${data.actualProfit||0}"></div><div><label>Actual Loss</label><input type="number" id="dfActualLoss" value="${data.actualLoss||0}"></div></div>
-        <label class="mt-2">Lesson Learned</label><textarea id="dfLesson" rows="2">${data.lessonLearned||''}</textarea>
+        ${d?`<hr><label>Status</label><select id="dfStatus">${['pending','successful','failed','cancelled'].map(s=>`<option ${data.status===s?'selected':''}>${s}</option>`).join('')}</select>
+        <div class="grid-2 mt-2"><div><label>Actual Profit</label><input type="number" id="dfActualProfit" value="${data.actualProfit||0}"></div><div><label>Actual Loss</label><input type="number" id="dfActualLoss" value="${data.actualLoss||0}"></div></div>
+        <label class="mt-2">Lesson</label><textarea id="dfLesson" rows="2">${data.lessonLearned||''}</textarea>
         <label class="mt-2">Mistakes</label><textarea id="dfMistakes" rows="2">${data.mistakes||''}</textarea>
-        <label class="mt-2">What to Repeat</label><textarea id="dfRepeat" rows="2">${data.whatToRepeat||''}</textarea>
-        ` : ''}
+        <label class="mt-2">What to Repeat</label><textarea id="dfRepeat" rows="2">${data.whatToRepeat||''}</textarea>`:''}
+        <button class="btn btn-primary mt-3" onclick="saveDecision()">Save</button>
     `;
-    document.getElementById('decisionModal').style.display = 'flex';
-    document.getElementById('dfCapital').addEventListener('input', calcProfit);
-    document.getElementById('dfSellPrice').addEventListener('input', calcProfit);
+    modal.style.display='flex';
+    document.getElementById('dfCapital')?.addEventListener('input',()=>{const c=Number(document.getElementById('dfCapital').value)||0;const s=Number(document.getElementById('dfSellPrice').value)||0;document.getElementById('dfProfit').value=s-c;});
+    document.getElementById('dfSellPrice')?.addEventListener('input',()=>{const c=Number(document.getElementById('dfCapital').value)||0;const s=Number(document.getElementById('dfSellPrice').value)||0;document.getElementById('dfProfit').value=s-c;});
 }
-function calcProfit() {
-    const cost = Number(document.getElementById('dfCapital').value) || 0;
-    const sell = Number(document.getElementById('dfSellPrice').value) || 0;
-    document.getElementById('dfProfit').value = sell - cost;
+function setFinal(v){document.querySelectorAll('#dfFinalBtns .chip').forEach(c=>c.classList.remove('active'));const b=document.querySelector(`#dfFinalBtns .chip[onclick="setFinal('${v}')"]`);if(b)b.classList.add('active');}
+function saveDecision(){
+    const g=(id)=>document.getElementById(id)?.value||'';const gn=(id)=>Number(document.getElementById(id)?.value)||0;
+    const gc=(id)=>document.getElementById(id)?.checked||false;
+    const fe=document.querySelector('#dfFinalBtns .chip.active');const fd=fe?fe.textContent.trim():'WAIT';
+    const base={title:g('dfTitle'),category:g('dfCategory'),capitalRequired:gn('dfCapital'),expectedSellingPrice:gn('dfSellPrice'),expectedProfit:gn('dfProfit'),maximumLoss:gn('dfMaxLoss'),expectedHoldingTime:g('dfHoldingTime'),riskLevel:g('dfRisk'),confidenceScore:Number(document.getElementById('dfConfidence')?.value)||50,supplierTrusted:gc('dfSupplier'),buyerAvailable:gc('dfBuyer'),evidence:g('dfEvidence'),worstCase:g('dfWorstCase'),recoveryPlan:g('dfRecovery'),finalDecision:fd};
+    if(!base.title){toast('Title required');return;}
+    if(editingDecisionId){const i=appData.decisions.findIndex(d=>d.id===editingDecisionId);if(i>=0){const s=g('dfStatus');appData.decisions[i]={...appData.decisions[i],...base,status:s,actualProfit:gn('dfActualProfit'),actualLoss:gn('dfActualLoss'),lessonLearned:g('dfLesson'),mistakes:g('dfMistakes'),whatToRepeat:g('dfRepeat')};}}
+    else{appData.decisions.unshift({...base,id:gId(),date:new Date().toISOString(),status:'pending',actualProfit:null,actualLoss:null});}
+    saveData();closeModal();renderDecisions();renderDashboard();toast(editingDecisionId?'Updated':'Saved');
 }
-function setFinal(val) {
-    document.querySelectorAll('#dfFinalBtns .chip').forEach(c => c.classList.remove('active'));
-    const btn = document.querySelector(`#dfFinalBtns .chip[onclick="setFinal('${val}')"]`);
-    if (btn) btn.classList.add('active');
+function closeModal(){document.getElementById('genericModal').style.display='none';editingDecisionId=null;}
+
+// ==================== INVENTORY ====================
+function renderInventory(){
+    document.getElementById('inventoryList').innerHTML=appData.inventory.length?appData.inventory.map(d=>`
+        <div class="inventory-row" onclick="openInventoryForm('${d.id}')">
+            <div class="flex-between"><span class="title">${d.device}</span><span class="badge badge-${d.status==='Sold'?'success':d.status==='Pending'?'pending':'failed'}">${d.status}</span></div>
+            <div class="meta">Cost: ${fmt(d.cost)} · Sell: ${fmt(d.sellPrice||0)} · ${d.date?.slice(0,10)||''}</div>
+            ${d.profit?`<div class="text-green text-xs mt-1">+${fmt(d.profit)}</div>`:''}
+        </div>`).join(''):'<p class="text-gray text-xs text-center">No inventory</p>';
 }
-function closeDecisionForm() { document.getElementById('decisionModal').style.display = 'none'; editingDecisionId = null; }
-function saveDecision() {
-    const get = (id) => document.getElementById(id)?.value || '';
-    const getNum = (id) => Number(document.getElementById(id)?.value) || 0;
-    const getCheck = (id) => document.getElementById(id)?.checked || false;
-    const finalEl = document.querySelector('#dfFinalBtns .chip.active');
-    const finalDecision = finalEl ? finalEl.textContent.trim() : 'WAIT';
-    const base = {
-        title: get('dfTitle'), category: get('dfCategory'), capitalRequired: getNum('dfCapital'),
-        expectedSellingPrice: getNum('dfSellPrice'), expectedProfit: getNum('dfProfit'),
-        maximumLoss: getNum('dfMaxLoss'), expectedHoldingTime: get('dfHoldingTime'),
-        riskLevel: get('dfRisk'), confidenceScore: Number(document.getElementById('dfConfidence')?.value) || 50,
-        supplierTrusted: getCheck('dfSupplier'), buyerAvailable: getCheck('dfBuyer'),
-        evidence: get('dfEvidence'), worstCase: get('dfWorstCase'), recoveryPlan: get('dfRecovery'), finalDecision,
-    };
-    if (!base.title) { toast('Title is required'); return; }
-    if (editingDecisionId) {
-        const idx = appData.decisions.findIndex(d => d.id === editingDecisionId);
-        if (idx >= 0) {
-            const status = get('dfStatus');
-            appData.decisions[idx] = { ...appData.decisions[idx], ...base, status,
-                actualProfit: getNum('dfActualProfit'), actualLoss: getNum('dfActualLoss'),
-                lessonLearned: get('dfLesson'), mistakes: get('dfMistakes'), whatToRepeat: get('dfRepeat') };
-        }
-    } else {
-        appData.decisions.unshift({ ...base, id: generateId(), date: new Date().toISOString(), status: 'pending', actualProfit: null, actualLoss: null });
-    }
-    saveData(); closeDecisionForm();
-    toast(editingDecisionId ? 'Decision updated' : 'Decision saved');
-    renderDecisions(); renderDashboard();
+function openInventoryForm(id){
+    const d=id?appData.inventory.find(x=>x.id===id):null;const data=d||{device:'',cost:0,sellPrice:0,status:'Pending',date:new Date().toISOString().slice(0,10),profit:0,notes:''};
+    const modal=document.getElementById('genericModal');const content=document.getElementById('genericModalContent');
+    content.innerHTML=`
+        <div class="flex-between mb-3"><h3 class="font-bold">${d?'Edit':'Add'} Inventory</h3><button onclick="closeModal()" style="background:none;border:none;color:var(--text2);font-size:1.5rem;">×</button></div>
+        <label>Device</label><input type="text" id="invDevice" value="${data.device}" placeholder="e.g., iPhone 12 64GB">
+        <div class="grid-2 mt-2"><div><label>Cost</label><input type="number" id="invCost" value="${data.cost}"></div><div><label>Sell Price</label><input type="number" id="invSell" value="${data.sellPrice}"></div></div>
+        <label class="mt-2">Status</label><select id="invStatus">${['Pending','Sold','Returned','Parts'].map(s=>`<option ${data.status===s?'selected':''}>${s}</option>`).join('')}</select>
+        <label class="mt-2">Date</label><input type="date" id="invDate" value="${data.date}">
+        <label class="mt-2">Notes</label><textarea id="invNotes" rows="2">${data.notes||''}</textarea>
+        <button class="btn btn-primary mt-3" onclick="saveInventory('${id||''}')">Save</button>
+    `;modal.style.display='flex';
+}
+function saveInventory(id){
+    const g=(x)=>document.getElementById(x)?.value||'';const gn=(x)=>Number(document.getElementById(x)?.value)||0;
+    const obj={device:g('invDevice'),cost:gn('invCost'),sellPrice:gn('invSell'),status:g('invStatus'),date:g('invDate'),profit:gn('invSell')-gn('invCost'),notes:g('invNotes')};
+    if(!obj.device){toast('Device name required');return;}
+    if(id){const i=appData.inventory.findIndex(x=>x.id===id);if(i>=0)appData.inventory[i]={...appData.inventory[i],...obj};}
+    else{appData.inventory.unshift({...obj,id:gId()});}
+    saveData();closeModal();renderInventory();renderDashboard();toast('Inventory saved');
+}
+
+// ==================== DEAL JOURNAL ====================
+function renderDeals(){
+    document.getElementById('dealList').innerHTML=appData.deals.length?appData.deals.map(d=>`
+        <div class="deal-row" onclick="openDealForm('${d.id}')">
+            <div class="flex-between"><span class="title">${d.customer||'Deal'}</span><span class="badge badge-${d.status==='Closed'?'success':d.status==='Pending'?'pending':'failed'}">${d.status}</span></div>
+            <div class="meta">${d.device||''} · Buy: ${fmt(d.buyPrice||0)} · Sell: ${fmt(d.sellPrice||0)} · ${d.date?.slice(0,10)||''}</div>
+            ${d.lesson?`<div class="text-blue text-xs mt-1">📝 ${d.lesson.substring(0,60)}</div>`:''}
+        </div>`).join(''):'<p class="text-gray text-xs text-center">No deals</p>';
+}
+function openDealForm(id){
+    const d=id?appData.deals.find(x=>x.id===id):null;const data=d||{customer:'',device:'',buyPrice:0,sellPrice:0,status:'Pending',date:new Date().toISOString().slice(0,10),profit:0,whyFailed:'',whyClosed:'',lesson:''};
+    const modal=document.getElementById('genericModal');const content=document.getElementById('genericModalContent');
+    content.innerHTML=`
+        <div class="flex-between mb-3"><h3 class="font-bold">${d?'Edit':'New'} Deal</h3><button onclick="closeModal()" style="background:none;border:none;color:var(--text2);font-size:1.5rem;">×</button></div>
+        <label>Customer</label><input type="text" id="dealCustomer" value="${data.customer}">
+        <label class="mt-2">Device</label><input type="text" id="dealDevice" value="${data.device}" placeholder="e.g., iPhone 11 Pro Max 64GB">
+        <div class="grid-2 mt-2"><div><label>Buy Price</label><input type="number" id="dealBuy" value="${data.buyPrice}"></div><div><label>Sell Price</label><input type="number" id="dealSell" value="${data.sellPrice}"></div></div>
+        <label class="mt-2">Status</label><select id="dealStatus">${['Pending','Closed','Failed','Returned'].map(s=>`<option ${data.status===s?'selected':''}>${s}</option>`).join('')}</select>
+        <label class="mt-2">Date</label><input type="date" id="dealDate" value="${data.date}">
+        <label class="mt-2">Why it failed</label><textarea id="dealWhyFailed" rows="2">${data.whyFailed||''}</textarea>
+        <label class="mt-2">Why it closed</label><textarea id="dealWhyClosed" rows="2">${data.whyClosed||''}</textarea>
+        <label class="mt-2">Lesson Learned</label><textarea id="dealLesson" rows="2">${data.lesson||''}</textarea>
+        <button class="btn btn-primary mt-3" onclick="saveDeal('${id||''}')">Save</button>
+    `;modal.style.display='flex';
+}
+function saveDeal(id){
+    const g=(x)=>document.getElementById(x)?.value||'';const gn=(x)=>Number(document.getElementById(x)?.value)||0;
+    const obj={customer:g('dealCustomer'),device:g('dealDevice'),buyPrice:gn('dealBuy'),sellPrice:gn('dealSell'),status:g('dealStatus'),date:g('dealDate'),profit:gn('dealSell')-gn('dealBuy'),whyFailed:g('dealWhyFailed'),whyClosed:g('dealWhyClosed'),lesson:g('dealLesson')};
+    if(!obj.customer&&!obj.device){toast('Customer or device required');return;}
+    if(id){const i=appData.deals.findIndex(x=>x.id===id);if(i>=0)appData.deals[i]={...appData.deals[i],...obj};}
+    else{appData.deals.unshift({...obj,id:gId()});}
+    saveData();closeModal();renderDeals();renderDashboard();toast('Deal saved');
+}
+
+// ==================== WEEKLY REVIEW ====================
+function renderReviews(){
+    document.getElementById('reviewList').innerHTML=appData.reviews.length?appData.reviews.slice().reverse().map(r=>`
+        <div class="card">
+            <div class="flex-between mb-2"><span class="font-bold text-sm">Week of ${r.date?.slice(0,10)||''}</span></div>
+            <div class="review-box"><div class="review-title text-green">✅ What Worked</div><p class="text-xs">${r.whatWorked||'-'}</p></div>
+            <div class="review-box"><div class="review-title text-red">❌ What Failed</div><p class="text-xs">${r.whatFailed||'-'}</p></div>
+            <div class="review-box"><div class="review-title text-yellow">💰 What Leaked</div><p class="text-xs">${r.whatLeaked||'-'}</p></div>
+            <div class="review-box"><div class="review-title text-blue">🔧 What to Improve</div><p class="text-xs">${r.whatImprove||'-'}</p></div>
+            <button class="btn btn-small btn-secondary mt-2" onclick="openReviewForm('${r.id}')">Edit</button>
+        </div>`).join(''):'<p class="text-gray text-xs text-center">No weekly reviews yet</p>';
+}
+function openReviewForm(id){
+    const d=id?appData.reviews.find(x=>x.id===id):null;const data=d||{date:new Date().toISOString().slice(0,10),whatWorked:'',whatFailed:'',whatLeaked:'',whatImprove:''};
+    const modal=document.getElementById('genericModal');const content=document.getElementById('genericModalContent');
+    content.innerHTML=`
+        <div class="flex-between mb-3"><h3 class="font-bold">${d?'Edit':'New'} Weekly Review</h3><button onclick="closeModal()" style="background:none;border:none;color:var(--text2);font-size:1.5rem;">×</button></div>
+        <label>Date</label><input type="date" id="revDate" value="${data.date}">
+        <label class="mt-2">✅ What Worked</label><textarea id="revWorked" rows="2">${data.whatWorked}</textarea>
+        <label class="mt-2">❌ What Failed</label><textarea id="revFailed" rows="2">${data.whatFailed}</textarea>
+        <label class="mt-2">💰 What Leaked Money</label><textarea id="revLeaked" rows="2">${data.whatLeaked}</textarea>
+        <label class="mt-2">🔧 What to Improve</label><textarea id="revImprove" rows="2">${data.whatImprove}</textarea>
+        <button class="btn btn-primary mt-3" onclick="saveReview('${id||''}')">Save</button>
+    `;modal.style.display='flex';
+}
+function saveReview(id){
+    const g=(x)=>document.getElementById(x)?.value||'';
+    const obj={date:g('revDate'),whatWorked:g('revWorked'),whatFailed:g('revFailed'),whatLeaked:g('revLeaked'),whatImprove:g('revImprove')};
+    if(id){const i=appData.reviews.findIndex(x=>x.id===id);if(i>=0)appData.reviews[i]={...appData.reviews[i],...obj};}
+    else{appData.reviews.unshift({...obj,id:gId()});}
+    saveData();closeModal();renderReviews();toast('Review saved');
+}
+
+// ==================== EXPENSES ====================
+let expenseFilter='all';
+function filterExpenses(f){expenseFilter=f;renderExpenses();}
+function renderExpenses(){
+    const filtered=appData.expenses.filter(e=>expenseFilter==='all'?true:e.category===expenseFilter).sort((a,b)=>new Date(b.date)-new Date(a.date));
+    document.querySelectorAll('#expenseFilter .chip').forEach(c=>c.classList.remove('active'));
+    const ac=document.querySelector(`#expenseFilter .chip[onclick="filterExpenses('${expenseFilter}')"]`);if(ac)ac.classList.add('active');
+    document.getElementById('expenseList').innerHTML=filtered.length?filtered.map(e=>`
+        <div class="expense-row" onclick="openExpenseForm('${e.id}')">
+            <div class="flex-between"><span class="title">${e.description||e.category}</span><span class="text-red font-bold">-${fmt(e.amount)}</span></div>
+            <div class="meta">${e.category} · ${e.date?.slice(0,10)||''}</div>
+        </div>`).join(''):'<p class="text-gray text-xs text-center">No expenses</p>';
+    const now=new Date();const tm=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+    const monthExp=appData.expenses.filter(e=>e.date&&e.date.startsWith(tm));
+    const cats={food:0,transport:0,data:0,random:0};
+    monthExp.forEach(e=>{if(cats[e.category]!==undefined)cats[e.category]+=e.amount;});
+    const total=Object.values(cats).reduce((a,b)=>a+b,0);
+    document.getElementById('expenseSummary').innerHTML=`
+        <div class="grid-2"><div class="text-xs text-gray">Food</div><div class="text-xs text-right">${fmt(cats.food)}</div></div>
+        <div class="grid-2"><div class="text-xs text-gray">Transport</div><div class="text-xs text-right">${fmt(cats.transport)}</div></div>
+        <div class="grid-2"><div class="text-xs text-gray">Data</div><div class="text-xs text-right">${fmt(cats.data)}</div></div>
+        <div class="grid-2"><div class="text-xs text-gray">Random</div><div class="text-xs text-right">${fmt(cats.random)}</div></div>
+        <hr><div class="grid-2 font-bold"><div class="text-xs">Total</div><div class="text-xs text-right text-red">${fmt(total)}</div></div>
+    `;
+}
+function openExpenseForm(id){
+    const d=id?appData.expenses.find(x=>x.id===id):null;const data=d||{description:'',amount:0,category:'food',date:new Date().toISOString().slice(0,10)};
+    const modal=document.getElementById('genericModal');const content=document.getElementById('genericModalContent');
+    content.innerHTML=`
+        <div class="flex-between mb-3"><h3 class="font-bold">${d?'Edit':'Log'} Expense</h3><button onclick="closeModal()" style="background:none;border:none;color:var(--text2);font-size:1.5rem;">×</button></div>
+        <label>Description</label><input type="text" id="expDesc" value="${data.description}" placeholder="e.g., Rice and water">
+        <label class="mt-2">Amount (₦)</label><input type="number" id="expAmount" value="${data.amount}">
+        <label class="mt-2">Category</label><select id="expCat">${['food','transport','data','random'].map(c=>`<option ${data.category===c?'selected':''}>${c}</option>`).join('')}</select>
+        <label class="mt-2">Date</label><input type="date" id="expDate" value="${data.date}">
+        <button class="btn btn-primary mt-3" onclick="saveExpense('${id||''}')">Save</button>
+    `;modal.style.display='flex';
+}
+function saveExpense(id){
+    const g=(x)=>document.getElementById(x)?.value||'';const gn=(x)=>Number(document.getElementById(x)?.value)||0;
+    const obj={description:g('expDesc'),amount:gn('expAmount'),category:g('expCat'),date:g('expDate')};
+    if(!obj.amount){toast('Amount required');return;}
+    if(id){const i=appData.expenses.findIndex(x=>x.id===id);if(i>=0)appData.expenses[i]={...appData.expenses[i],...obj};}
+    else{appData.expenses.unshift({...obj,id:gId()});}
+    saveData();closeModal();renderExpenses();toast('Expense logged');
 }
 
 // ==================== CAPITAL ====================
-function renderCapital() {
-    const c = appData.capital;
-    document.getElementById('capitalNetWorth').textContent = fmt(getNetWorth());
-    document.getElementById('capitalFields').innerHTML = Object.entries(c).map(([k,v]) => `<div class="flex-between text-sm mb-2"><span class="text-gray capitalize">${k.replace(/([A-Z])/g,' $1')}</span><span class="font-bold">${fmt(v)}</span></div>`).join('');
-    document.getElementById('capitalEditFields').innerHTML = Object.entries(c).map(([k,v]) => `<label class="mt-1 capitalize">${k.replace(/([A-Z])/g,' $1')}</label><input type="number" id="cap_${k}" value="${v}">`).join('');
+function renderCapital(){
+    const c=appData.capital;
+    document.getElementById('capitalNetWorth').textContent=fmt(getNetWorth());
+    document.getElementById('capitalFields').innerHTML=Object.entries(c).map(([k,v])=>`<div class="flex-between text-sm mb-2"><span class="text-gray capitalize">${k.replace(/([A-Z])/g,' $1')}</span><span class="font-bold">${fmt(v)}</span></div>`).join('');
+    document.getElementById('capitalEditFields').innerHTML=Object.entries(c).map(([k,v])=>`<label class="mt-1 capitalize">${k.replace(/([A-Z])/g,' $1')}</label><input type="number" id="cap_${k}" value="${v}">`).join('');
 }
-function toggleCapitalEdit() {
-    const view = document.getElementById('capitalView'), edit = document.getElementById('capitalEdit'), btn = document.getElementById('btnEditCapital');
-    if (edit.style.display === 'none') { view.style.display = 'none'; edit.style.display = 'block'; btn.textContent = 'Cancel'; }
-    else { view.style.display = 'block'; edit.style.display = 'none'; btn.textContent = 'Edit'; renderCapital(); }
+function toggleCapitalEdit(){
+    const v=document.getElementById('capitalView'),e=document.getElementById('capitalEdit'),b=document.getElementById('btnEditCapital');
+    if(e.style.display==='none'){v.style.display='none';e.style.display='block';b.textContent='Cancel';}else{v.style.display='block';e.style.display='none';b.textContent='Edit';renderCapital();}
 }
-function saveCapital() {
-    const c = appData.capital;
-    Object.keys(c).forEach(k => { c[k] = Number(document.getElementById('cap_'+k)?.value) || 0; });
-    saveData(); renderCapital(); toggleCapitalEdit(); toast('Capital updated');
-}
-
-// ==================== JOURNAL ====================
-function renderJournal() {
-    const q = document.getElementById('journalSearch').value.toLowerCase();
-    const completed = appData.decisions.filter(d => d.status !== 'pending' && (!q || (d.title||'').toLowerCase().includes(q) || (d.lessonLearned||'').toLowerCase().includes(q) || (d.mistakes||'').toLowerCase().includes(q)));
-    document.getElementById('journalList').innerHTML = completed.length ? completed.map(d => `
-        <div class="card">
-            <div class="flex-between mb-2"><span class="font-bold text-sm">${d.title}</span><span class="badge badge-${d.status==='successful'?'success':'failed'}">${d.status}</span></div>
-            <div class="text-sm"><span class="text-gray">P&L:</span> <span class="${(d.actualProfit||0) > 0 ? 'text-green' : 'text-red'} font-bold">${d.actualProfit ? '+' + fmt(d.actualProfit) : d.actualLoss ? '-' + fmt(d.actualLoss) : fmt(0)}</span></div>
-            ${d.mistakes ? `<div class="mt-2" style="background:var(--red-bg);border-radius:6px;padding:8px;"><span class="text-red text-xs font-bold">MISTAKES</span><p class="text-xs">${d.mistakes}</p></div>` : ''}
-            ${d.lessonLearned ? `<div class="mt-2" style="background:var(--blue-bg);border-radius:6px;padding:8px;"><span class="text-blue text-xs font-bold">LESSON</span><p class="text-xs">${d.lessonLearned}</p></div>` : ''}
-            ${d.whatToRepeat ? `<div class="mt-2" style="background:var(--green-bg);border-radius:6px;padding:8px;"><span class="text-green text-xs font-bold">WHAT TO REPEAT</span><p class="text-xs">${d.whatToRepeat}</p></div>` : ''}
-            <button class="btn btn-small btn-secondary mt-2" onclick="openDecisionForm('${d.id}')">Edit Notes</button>
-        </div>`).join('') : '<p class="text-gray text-xs text-center">No journal entries yet</p>';
+function saveCapital(){
+    const c=appData.capital;Object.keys(c).forEach(k=>{c[k]=Number(document.getElementById('cap_'+k)?.value)||0;});
+    saveData();renderCapital();toggleCapitalEdit();toast('Capital updated');
 }
 
 // ==================== ANALYTICS ====================
-function renderAnalytics() {
-    const completed = appData.decisions.filter(d => d.status !== 'pending');
-    if (!completed.length) { document.getElementById('analyticsContent').innerHTML = '<p class="text-gray text-xs text-center">Complete decisions to see analytics</p>'; return; }
-    const wins = completed.filter(d => d.status === 'successful'), losses = completed.filter(d => d.status === 'failed');
-    const wr = completed.length ? Math.round(wins.length / completed.length * 100) : 0;
-    const tp = wins.reduce((s,d) => s + (d.actualProfit||0), 0), tl = losses.reduce((s,d) => s + (d.actualLoss||0), 0);
-    const best = [...wins].sort((a,b) => (b.actualProfit||0) - (a.actualProfit||0))[0];
-    const worst = [...losses].sort((a,b) => (b.actualLoss||0) - (a.actualLoss||0))[0];
-    document.getElementById('analyticsContent').innerHTML = `
-        <div class="stat-row mb-3">
-            <div class="stat"><div class="val">${completed.length}</div><div class="lbl">Decisions</div></div>
-            <div class="stat"><div class="val text-green">${wr}%</div><div class="lbl">Win Rate</div></div>
-            <div class="stat"><div class="val text-green">+${fmt(tp)}</div><div class="lbl">Total Profit</div></div>
-            <div class="stat"><div class="val text-red">-${fmt(tl)}</div><div class="lbl">Total Loss</div></div>
+function renderAnalytics(){
+    const completed=appData.decisions.filter(d=>d.status!=='pending');
+    const wins=completed.filter(d=>d.status==='successful'),losses=completed.filter(d=>d.status==='failed');
+    const wr=completed.length?Math.round(wins.length/completed.length*100):0;
+    const tp=wins.reduce((s,d)=>s+(d.actualProfit||0),0),tl=losses.reduce((s,d)=>s+(d.actualLoss||0),0);
+    const best=[...wins].sort((a,b)=>(b.actualProfit||0)-(a.actualProfit||0))[0];
+    const worst=[...losses].sort((a,b)=>(b.actualLoss||0)-(a.actualLoss||0))[0];
+    const totalExpenses=appData.expenses.reduce((s,e)=>s+e.amount,0);
+    const totalDeals=appData.deals.length;
+    const totalInventory=appData.inventory.filter(i=>i.status==='Sold').length;
+    document.getElementById('analyticsContent').innerHTML=`
+        <div class="card"><span class="text-sm text-gray">MONTHLY CEO REVIEW</span>
+            <div class="stat-row mt-2">
+                <div class="stat"><div class="val">${completed.length}</div><div class="lbl">Decisions</div></div>
+                <div class="stat"><div class="val text-green">${wr}%</div><div class="lbl">Win Rate</div></div>
+                <div class="stat"><div class="val text-green">+${fmt(tp)}</div><div class="lbl">Profit</div></div>
+                <div class="stat"><div class="val text-red">-${fmt(tl)}</div><div class="lbl">Loss</div></div>
+            </div>
         </div>
-        ${best ? `<div class="card"><span class="text-green text-xs font-bold">BEST DECISION</span><p class="font-bold text-sm">${best.title}</p><p class="text-green">+${fmt(best.actualProfit||0)}</p></div>` : ''}
-        ${worst ? `<div class="card"><span class="text-red text-xs font-bold">WORST DECISION</span><p class="font-bold text-sm">${worst.title}</p><p class="text-red">-${fmt(worst.actualLoss||0)}</p></div>` : ''}
+        <div class="card">
+            <div class="stat-row">
+                <div class="stat"><div class="val">${totalDeals}</div><div class="lbl">Deals</div></div>
+                <div class="stat"><div class="val">${totalInventory}</div><div class="lbl">Sold</div></div>
+                <div class="stat"><div class="val text-red">${fmt(totalExpenses)}</div><div class="lbl">Expenses</div></div>
+                <div class="stat"><div class="val">${fmt(getNetWorth())}</div><div class="lbl">Net Worth</div></div>
+            </div>
+        </div>
+        ${best?`<div class="card"><span class="text-green text-xs font-bold">BEST DECISION</span><p class="font-bold text-sm">${best.title}</p><p class="text-green">+${fmt(best.actualProfit||0)}</p></div>`:''}
+        ${worst?`<div class="card"><span class="text-red text-xs font-bold">WORST DECISION</span><p class="font-bold text-sm">${worst.title}</p><p class="text-red">-${fmt(worst.actualLoss||0)}</p></div>`:''}
     `;
 }
 
 // ==================== SETTINGS ====================
-function renderSettings() {
-    const note = document.getElementById('backupNote');
-    if (!appData.lastBackup) note.textContent = '⚠ No backup yet. Export your data.';
-    else { const days = Math.floor((Date.now() - new Date(appData.lastBackup).getTime()) / 86400000); note.textContent = days > 7 ? `⚠ Last backup: ${days} days ago` : `✅ Backed up ${days} days ago`; }
+function renderSettings(){
+    const n=document.getElementById('backupNote');
+    if(!appData.lastBackup)n.textContent='⚠ No backup yet. Export your data.';
+    else{const d=Math.floor((Date.now()-new Date(appData.lastBackup).getTime())/86400000);n.textContent=d>7?`⚠ Last backup: ${d} days ago`:`✅ Backed up ${d} days ago`;}
 }
-function exportData() {
-    const blob = new Blob([JSON.stringify(appData, null, 2)], {type:'application/json'});
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = 'tradeos_backup_' + new Date().toISOString().slice(0,10) + '.json'; a.click();
-    appData.lastBackup = new Date().toISOString(); saveData(); renderSettings(); toast('Exported');
+function exportData(){
+    const b=new Blob([JSON.stringify(appData,null,2)],{type:'application/json'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='labrahman_backup_'+new Date().toISOString().slice(0,10)+'.json';a.click();
+    appData.lastBackup=new Date().toISOString();saveData();renderSettings();toast('Exported');
 }
-function importData(e) {
-    const file = e.target.files[0]; if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(ev) { try { const d = JSON.parse(ev.target.result); if (d.capital && d.decisions) { if (confirm('Replace all data?')) { appData = d; saveData(); renderAll(); toast('Imported'); } } else toast('Invalid file'); } catch(x) { toast('Invalid file'); } };
-    reader.readAsText(file); e.target.value = '';
+function importData(e){
+    const f=e.target.files[0];if(!f)return;const r=new FileReader();
+    r.onload=function(ev){try{const d=JSON.parse(ev.target.result);if(d.capital&&d.decisions){if(confirm('Replace all data?')){appData=d;saveData();renderAll();toast('Imported');}}else toast('Invalid file');}catch(x){toast('Invalid file');}};
+    r.readAsText(f);e.target.value='';
 }
-function resetAll() { if (confirm('Delete all data?')) { appData = { capital: { cash:0,emergencyFund:0,inventoryValue:0,receivables:0,payables:0 }, decisions:[], lastBackup:null, zubiBalance:0, zubiMonthly:20000, zubiPayout:200000, zubiPayoutMonth:'August 2026' }; saveData(); renderAll(); toast('Reset'); } }
-
-function renderAll() { renderDashboard(); renderDecisions(); renderCapital(); renderJournal(); renderAnalytics(); renderSettings(); }
+function resetAll(){if(confirm('Delete ALL data?')){appData={capital:{cash:0,emergencyFund:0,inventoryValue:0,receivables:0,payables:0},zubi:{balance:0,monthly:20000,payout:200000,payoutMonth:'August 2026'},decisions:[],inventory:[],deals:[],reviews:[],expenses:[],lastBackup:null};saveData();renderAll();toast('Reset');}}
+function renderAll(){renderDashboard();renderDecisions();renderInventory();renderDeals();renderReviews();renderExpenses();renderCapital();renderAnalytics();renderSettings();}
 
 // ==================== INIT ====================
-loadData(); renderAll(); showPage('dashboard');
+loadData();renderAll();showPage('dashboard');
 </script>
 </body>
 </html>
