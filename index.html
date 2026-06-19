@@ -21,7 +21,7 @@
         body {
             background:var(--bg); color:var(--text);
             font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif;
-            max-width:500px; margin:0 auto; padding:0 0 90px 0; line-height:1.5;
+            max-width:500px; margin:0 auto; padding:0 0 85px 0; line-height:1.5;
             -webkit-tap-highlight-color:transparent; -webkit-font-smoothing:antialiased;
         }
         header {
@@ -47,7 +47,6 @@
         .btn-secondary { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
         .btn-danger { background:var(--red-bg); color:var(--red); border:1px solid rgba(239,68,68,0.3); }
         .btn-small { display:inline-block; width:auto; padding:6px 12px; font-size:0.7rem; border-radius:6px; }
-        .btn-xs { display:inline-block; width:auto; padding:4px 8px; font-size:0.6rem; border-radius:4px; }
         input,select,textarea {
             width:100%; padding:10px 12px; background:var(--surface2); border:1px solid var(--border);
             border-radius:6px; color:var(--text); font-size:0.85rem; font-family:inherit; -webkit-appearance:none;
@@ -59,22 +58,16 @@
         .badge-reject{background:var(--red-bg);color:var(--red);} .badge-success{background:var(--green-bg);color:var(--green);}
         .badge-failed{background:var(--red-bg);color:var(--red);} .badge-pending{background:var(--blue-bg);color:var(--blue);}
         .badge-active{background:var(--purple-bg);color:var(--purple);}
-        .decision-row, .inventory-row, .expense-row, .deal-row {
-            background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:12px; margin-bottom:8px; cursor:pointer; transition:0.15s;
-        }
-        .decision-row:active,.inventory-row:active,.expense-row:active,.deal-row:active { background:var(--surface); }
-        .title { font-weight:600; font-size:0.9rem; }
-        .meta { font-size:0.7rem; color:var(--text2); margin-top:2px; }
-        .flex-row{display:flex;gap:8px;align-items:center;} .flex-between{display:flex;justify-content:space-between;align-items:center;}
-        .mt-1{margin-top:4px;} .mt-2{margin-top:8px;} .mt-3{margin-top:12px;} .mt-4{margin-top:16px;}
+        .row-item { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:12px; margin-bottom:8px; cursor:pointer; transition:0.15s; }
+        .row-item:active { background:var(--surface); }
+        .row-item .rt { font-weight:600; font-size:0.9rem; }
+        .row-item .rm { font-size:0.7rem; color:var(--text2); margin-top:2px; }
+        .flex-between{display:flex;justify-content:space-between;align-items:center;}
+        .mt-1{margin-top:4px;} .mt-2{margin-top:8px;} .mt-3{margin-top:12px;}
         .mb-2{margin-bottom:8px;} .mb-3{margin-bottom:12px;}
-        .text-green{color:var(--green);} .text-red{color:var(--red);} .text-blue{color:var(--blue);} .text-purple{color:var(--purple);}
+        .text-green{color:var(--green);} .text-red{color:var(--red);} .text-blue{color:var(--blue);}
         .text-gray{color:var(--text2);} .text-xs{font-size:0.7rem;} .text-sm{font-size:0.8rem;} .text-lg{font-size:1.1rem;} .text-xl{font-size:1.5rem;}
-        .font-bold{font-weight:700;} .text-center{text-align:center;} .w-full{width:100%;}
-        hr{border:none;border-top:1px solid var(--border);margin:12px 0;}
-        .range-wrap{display:flex;align-items:center;gap:8px;}
-        .range-wrap input[type=range]{flex:1;accent-color:var(--blue);}
-        .range-wrap span{font-weight:700;font-size:0.8rem;min-width:32px;text-align:right;}
+        .font-bold{font-weight:700;} .text-center{text-align:center;}
         .chip-row{display:flex;gap:6px;flex-wrap:wrap;}
         .chip{padding:5px 10px;border-radius:14px;font-size:0.65rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--text2);}
         .chip.active{background:var(--blue);color:#fff;border-color:var(--blue);}
@@ -85,18 +78,14 @@
         .rule-box{background:var(--blue-bg);border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px;margin-top:4px;}
         .rule-box .rule-title{color:var(--blue);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
         .rule-box .rule-body{font-size:0.75rem;color:var(--text);margin-top:2px;}
-        .table-row{display:grid;gap:4px;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.7rem;align-items:center;}
-        .table-header{color:var(--text2);font-weight:700;text-transform:uppercase;font-size:0.6rem;letter-spacing:0.3px;}
-        nav{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;overflow-x:auto;padding:6px 4px 12px 4px;z-index:30;max-width:500px;margin:0 auto;scrollbar-width:none;}
-        nav::-webkit-scrollbar{display:none;}
-        nav button{background:none;border:none;color:var(--text3);font-size:0.55rem;font-weight:600;cursor:pointer;padding:6px 5px;border-radius:6px;display:flex;flex-direction:column;align-items:center;gap:3px;transition:0.15s;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
-        nav button.active{color:var(--blue);}
-        nav button svg{width:16px;height:16px;}
-        .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
-        .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;}
         .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
         .review-box{background:var(--surface2);border-radius:8px;padding:10px;margin-bottom:8px;}
         .review-box .review-title{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:4px;}
+        hr{border:none;border-top:1px solid var(--border);margin:10px 0;}
+        nav{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;justify-content:space-between;padding:4px 2px 10px 2px;z-index:30;max-width:500px;margin:0 auto;}
+        nav button{background:none;border:none;color:var(--text3);font-size:0.5rem;font-weight:600;cursor:pointer;padding:4px 0;border-radius:6px;display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:0;-webkit-tap-highlight-color:transparent;}
+        nav button.active{color:var(--blue);}
+        nav button svg{width:16px;height:16px;}
     </style>
 </head>
 <body>
@@ -124,6 +113,7 @@
         <div class="flex-between mb-2"><span class="text-sm text-gray">ZUBI SAVINGS</span><span class="badge badge-active">Active</span></div>
         <div class="text-lg font-bold" id="dashZubi">₦45,000</div>
         <div class="text-xs text-gray mt-1">Monthly: ₦20,000 · Payout: ₦200,000 in August</div>
+        <button class="btn btn-small btn-secondary mt-2" onclick="editZubi()">Edit Zubi</button>
     </div>
     <div class="card">
         <div class="flex-between mb-2"><span class="text-sm text-gray">DECISIONS</span></div>
@@ -245,7 +235,7 @@
     </div>
 </div>
 
-<!-- ========== MODALS ========== -->
+<!-- ========== MODAL ========== -->
 <div class="modal" id="genericModal" style="display:none;">
     <div class="modal-content" id="genericModalContent"></div>
 </div>
@@ -263,17 +253,11 @@
 </nav>
 
 <script>
-// ==================== DATA ENGINE ====================
 const STORAGE_KEY = 'tradeos_labrahman_v1';
 let appData = {
     capital: { cash:0, emergencyFund:0, inventoryValue:10000, receivables:43000, payables:0 },
     zubi: { balance:45000, monthly:20000, payout:200000, payoutMonth:'August 2026' },
-    decisions: [],
-    inventory: [],
-    deals: [],
-    reviews: [],
-    expenses: [],
-    lastBackup: null
+    decisions: [], inventory: [], deals: [], reviews: [], expenses: [], lastBackup: null
 };
 function loadData(){const r=localStorage.getItem(STORAGE_KEY);if(r){try{const p=JSON.parse(r);appData={...appData,...p};}catch(e){}}}
 function saveData(){localStorage.setItem(STORAGE_KEY,JSON.stringify(appData));}
@@ -286,41 +270,48 @@ function showPage(page){
     document.querySelectorAll('#mainNav button').forEach(b=>b.classList.remove('active'));
     const pg=document.getElementById('page-'+page);if(pg)pg.classList.add('active');
     const btn=document.querySelector(`#mainNav button[data-page="${page}"]`);if(btn)btn.classList.add('active');
-    if(page==='dashboard')renderDashboard();
-    if(page==='decisions')renderDecisions();
-    if(page==='inventory')renderInventory();
-    if(page==='deals')renderDeals();
-    if(page==='weekly')renderReviews();
-    if(page==='expenses')renderExpenses();
-    if(page==='capital')renderCapital();
-    if(page==='analytics')renderAnalytics();
-    if(page==='settings')renderSettings();
+    if(page==='dashboard')renderDashboard();if(page==='decisions')renderDecisions();if(page==='inventory')renderInventory();
+    if(page==='deals')renderDeals();if(page==='weekly')renderReviews();if(page==='expenses')renderExpenses();
+    if(page==='capital')renderCapital();if(page==='analytics')renderAnalytics();if(page==='settings')renderSettings();
 }
 document.getElementById('mainNav').addEventListener('click',function(e){const b=e.target.closest('button');if(b&&b.dataset.page)showPage(b.dataset.page);});
 
-// ==================== DASHBOARD ====================
 function renderDashboard(){
     const c=appData.capital;
     document.getElementById('dashNetWorth').textContent=fmt(getNetWorth());
-    document.getElementById('dashCash').textContent=fmt(c.cash);
-    document.getElementById('dashEmergency').textContent=fmt(c.emergencyFund);
-    document.getElementById('dashInventory').textContent=fmt(c.inventoryValue);
-    document.getElementById('dashOwed').textContent=fmt(c.receivables);
+    document.getElementById('dashCash').textContent=fmt(c.cash);document.getElementById('dashEmergency').textContent=fmt(c.emergencyFund);
+    document.getElementById('dashInventory').textContent=fmt(c.inventoryValue);document.getElementById('dashOwed').textContent=fmt(c.receivables);
     document.getElementById('dashZubi').textContent=fmt(appData.zubi.balance);
     const open=appData.decisions.filter(d=>d.status==='pending').length;
     const success=appData.decisions.filter(d=>d.status==='successful').length;
     const failed=appData.decisions.filter(d=>d.status==='failed').length;
-    document.getElementById('dashOpen').textContent=open;
-    document.getElementById('dashSuccess').textContent=success;
-    document.getElementById('dashFailed').textContent=failed;
+    document.getElementById('dashOpen').textContent=open;document.getElementById('dashSuccess').textContent=success;document.getElementById('dashFailed').textContent=failed;
     const now=new Date();const tm=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
     const mpl=appData.decisions.filter(d=>d.date&&d.date.startsWith(tm)&&d.status!=='pending').reduce((s,d)=>s+(d.actualProfit||0)-(d.actualLoss||0),0);
     const plEl=document.getElementById('dashMonthPL');plEl.textContent=(mpl>=0?'+':'')+fmt(mpl);plEl.style.color=mpl>=0?'var(--green)':'var(--red)';
     const recent=[...appData.decisions,...appData.deals.map(d=>({...d,title:'Deal: '+d.customer}))].sort((a,b)=>new Date(b.date||0)-new Date(a.date||0)).slice(0,3);
-    document.getElementById('dashRecent').innerHTML=recent.length?recent.map(d=>`<div class="decision-row"><div class="flex-between"><span class="title">${d.title||d.pair||'Unknown'}</span></div><div class="meta">${d.date?.slice(0,10)||''} · ${d.status||d.result||'pending'}</div></div>`).join(''):'<p class="text-gray text-xs text-center">No activity yet</p>';
+    document.getElementById('dashRecent').innerHTML=recent.length?recent.map(d=>`<div class="row-item"><div class="flex-between"><span class="rt">${d.title||d.pair||'Unknown'}</span></div><div class="rm">${d.date?.slice(0,10)||''} · ${d.status||d.result||'pending'}</div></div>`).join(''):'<p class="text-gray text-xs text-center">No activity yet</p>';
 }
 
-// ==================== DECISIONS ====================
+// ==================== ZUBI EDIT ====================
+function editZubi(){
+    const modal=document.getElementById('genericModal');const content=document.getElementById('genericModalContent');
+    content.innerHTML=`
+        <div class="flex-between mb-3"><h3 class="font-bold">Edit Zubi</h3><button onclick="closeModal()" style="background:none;border:none;color:var(--text2);font-size:1.5rem;">×</button></div>
+        <label>Current Balance</label><input type="number" id="zubiBalance" value="${appData.zubi.balance}">
+        <label class="mt-2">Monthly Contribution</label><input type="number" id="zubiMonthly" value="${appData.zubi.monthly}">
+        <label class="mt-2">Expected Payout</label><input type="number" id="zubiPayout" value="${appData.zubi.payout}">
+        <label class="mt-2">Payout Month</label><input type="text" id="zubiMonth" value="${appData.zubi.payoutMonth}">
+        <button class="btn btn-primary mt-3" onclick="saveZubi()">Save</button>
+    `;
+    modal.style.display='flex';
+}
+function saveZubi(){
+    const g=(id)=>document.getElementById(id)?.value||'';const gn=(id)=>Number(document.getElementById(id)?.value)||0;
+    appData.zubi={balance:gn('zubiBalance'),monthly:gn('zubiMonthly'),payout:gn('zubiPayout'),payoutMonth:g('zubiMonth')};
+    saveData();closeModal();renderDashboard();toast('Zubi updated');
+}
+
 let decisionFilter='all';
 function filterDecisions(f){decisionFilter=f;renderDecisions();}
 function renderDecisions(){
@@ -328,9 +319,9 @@ function renderDecisions(){
     document.querySelectorAll('#decisionFilter .chip').forEach(c=>c.classList.remove('active'));
     const ac=document.querySelector(`#decisionFilter .chip[onclick="filterDecisions('${decisionFilter}')"]`);if(ac)ac.classList.add('active');
     document.getElementById('decisionList').innerHTML=filtered.length?filtered.map(d=>`
-        <div class="decision-row" onclick="openDecisionForm('${d.id}')">
-            <div class="flex-between"><span class="title">${d.title}</span><span class="badge badge-${d.finalDecision==='BUY'?'buy':d.finalDecision==='WAIT'?'wait':'reject'}">${d.finalDecision}</span></div>
-            <div class="meta">${d.status} · ${fmt(d.capitalRequired)} · ${d.category} · ${d.date?.slice(0,10)||''}</div>
+        <div class="row-item" onclick="openDecisionForm('${d.id}')">
+            <div class="flex-between"><span class="rt">${d.title}</span><span class="badge badge-${d.finalDecision==='BUY'?'buy':d.finalDecision==='WAIT'?'wait':'reject'}">${d.finalDecision}</span></div>
+            <div class="rm">${d.status} · ${fmt(d.capitalRequired)} · ${d.category} · ${d.date?.slice(0,10)||''}</div>
             ${d.actualProfit?`<div class="text-green text-xs mt-1">+${fmt(d.actualProfit)}</div>`:''}${d.actualLoss?`<div class="text-red text-xs mt-1">-${fmt(d.actualLoss)}</div>`:''}
         </div>`).join(''):'<p class="text-gray text-xs text-center">No decisions</p>';
 }
@@ -340,7 +331,7 @@ function openDecisionForm(id){
     const modal=document.getElementById('genericModal');const content=document.getElementById('genericModalContent');
     const data=d||{title:'',category:'inventory',capitalRequired:0,expectedSellingPrice:0,expectedProfit:0,maximumLoss:0,expectedHoldingTime:'',riskLevel:'medium',confidenceScore:50,supplierTrusted:false,buyerAvailable:false,evidence:'',worstCase:'',recoveryPlan:'',finalDecision:'WAIT',status:'pending',lessonLearned:'',mistakes:'',whatToRepeat:''};
     content.innerHTML=`
-        <div class="flex-between mb-3"><h3 class="font-bold">${d?'Edit':'New'} Decision</h3><button onclick="closeModal()" style="background:none;border:none;color:var(--text2);font-size:1.5rem;cursor:pointer;">×</button></div>
+        <div class="flex-between mb-3"><h3 class="font-bold">${d?'Edit':'New'} Decision</h3><button onclick="closeModal()" style="background:none;border:none;color:var(--text2);font-size:1.5rem;">×</button></div>
         <label>Title *</label><input type="text" id="dfTitle" value="${data.title}">
         <label class="mt-2">Category</label><select id="dfCategory">${['inventory','brokerage','trading','content','savings','other'].map(c=>`<option ${data.category===c?'selected':''}>${c}</option>`).join('')}</select>
         <div class="grid-2 mt-2"><div><label>Capital Required</label><input type="number" id="dfCapital" value="${data.capitalRequired}"></div><div><label>Expected Sell</label><input type="number" id="dfSellPrice" value="${data.expectedSellingPrice}"></div></div>
@@ -371,8 +362,7 @@ function openDecisionForm(id){
 }
 function setFinal(v){document.querySelectorAll('#dfFinalBtns .chip').forEach(c=>c.classList.remove('active'));const b=document.querySelector(`#dfFinalBtns .chip[onclick="setFinal('${v}')"]`);if(b)b.classList.add('active');}
 function saveDecision(){
-    const g=(id)=>document.getElementById(id)?.value||'';const gn=(id)=>Number(document.getElementById(id)?.value)||0;
-    const gc=(id)=>document.getElementById(id)?.checked||false;
+    const g=(id)=>document.getElementById(id)?.value||'';const gn=(id)=>Number(document.getElementById(id)?.value)||0;const gc=(id)=>document.getElementById(id)?.checked||false;
     const fe=document.querySelector('#dfFinalBtns .chip.active');const fd=fe?fe.textContent.trim():'WAIT';
     const base={title:g('dfTitle'),category:g('dfCategory'),capitalRequired:gn('dfCapital'),expectedSellingPrice:gn('dfSellPrice'),expectedProfit:gn('dfProfit'),maximumLoss:gn('dfMaxLoss'),expectedHoldingTime:g('dfHoldingTime'),riskLevel:g('dfRisk'),confidenceScore:Number(document.getElementById('dfConfidence')?.value)||50,supplierTrusted:gc('dfSupplier'),buyerAvailable:gc('dfBuyer'),evidence:g('dfEvidence'),worstCase:g('dfWorstCase'),recoveryPlan:g('dfRecovery'),finalDecision:fd};
     if(!base.title){toast('Title required');return;}
@@ -382,12 +372,11 @@ function saveDecision(){
 }
 function closeModal(){document.getElementById('genericModal').style.display='none';editingDecisionId=null;}
 
-// ==================== INVENTORY ====================
 function renderInventory(){
     document.getElementById('inventoryList').innerHTML=appData.inventory.length?appData.inventory.map(d=>`
-        <div class="inventory-row" onclick="openInventoryForm('${d.id}')">
-            <div class="flex-between"><span class="title">${d.device}</span><span class="badge badge-${d.status==='Sold'?'success':d.status==='Pending'?'pending':'failed'}">${d.status}</span></div>
-            <div class="meta">Cost: ${fmt(d.cost)} · Sell: ${fmt(d.sellPrice||0)} · ${d.date?.slice(0,10)||''}</div>
+        <div class="row-item" onclick="openInventoryForm('${d.id}')">
+            <div class="flex-between"><span class="rt">${d.device}</span><span class="badge badge-${d.status==='Sold'?'success':d.status==='Pending'?'pending':'failed'}">${d.status}</span></div>
+            <div class="rm">Cost: ${fmt(d.cost)} · Sell: ${fmt(d.sellPrice||0)} · ${d.date?.slice(0,10)||''}</div>
             ${d.profit?`<div class="text-green text-xs mt-1">+${fmt(d.profit)}</div>`:''}
         </div>`).join(''):'<p class="text-gray text-xs text-center">No inventory</p>';
 }
@@ -396,7 +385,7 @@ function openInventoryForm(id){
     const modal=document.getElementById('genericModal');const content=document.getElementById('genericModalContent');
     content.innerHTML=`
         <div class="flex-between mb-3"><h3 class="font-bold">${d?'Edit':'Add'} Inventory</h3><button onclick="closeModal()" style="background:none;border:none;color:var(--text2);font-size:1.5rem;">×</button></div>
-        <label>Device</label><input type="text" id="invDevice" value="${data.device}" placeholder="e.g., iPhone 12 64GB">
+        <label>Device</label><input type="text" id="invDevice" value="${data.device}">
         <div class="grid-2 mt-2"><div><label>Cost</label><input type="number" id="invCost" value="${data.cost}"></div><div><label>Sell Price</label><input type="number" id="invSell" value="${data.sellPrice}"></div></div>
         <label class="mt-2">Status</label><select id="invStatus">${['Pending','Sold','Returned','Parts'].map(s=>`<option ${data.status===s?'selected':''}>${s}</option>`).join('')}</select>
         <label class="mt-2">Date</label><input type="date" id="invDate" value="${data.date}">
@@ -413,12 +402,11 @@ function saveInventory(id){
     saveData();closeModal();renderInventory();renderDashboard();toast('Inventory saved');
 }
 
-// ==================== DEAL JOURNAL ====================
 function renderDeals(){
     document.getElementById('dealList').innerHTML=appData.deals.length?appData.deals.map(d=>`
-        <div class="deal-row" onclick="openDealForm('${d.id}')">
-            <div class="flex-between"><span class="title">${d.customer||'Deal'}</span><span class="badge badge-${d.status==='Closed'?'success':d.status==='Pending'?'pending':'failed'}">${d.status}</span></div>
-            <div class="meta">${d.device||''} · Buy: ${fmt(d.buyPrice||0)} · Sell: ${fmt(d.sellPrice||0)} · ${d.date?.slice(0,10)||''}</div>
+        <div class="row-item" onclick="openDealForm('${d.id}')">
+            <div class="flex-between"><span class="rt">${d.customer||'Deal'}</span><span class="badge badge-${d.status==='Closed'?'success':d.status==='Pending'?'pending':'failed'}">${d.status}</span></div>
+            <div class="rm">${d.device||''} · Buy: ${fmt(d.buyPrice||0)} · Sell: ${fmt(d.sellPrice||0)} · ${d.date?.slice(0,10)||''}</div>
             ${d.lesson?`<div class="text-blue text-xs mt-1">📝 ${d.lesson.substring(0,60)}</div>`:''}
         </div>`).join(''):'<p class="text-gray text-xs text-center">No deals</p>';
 }
@@ -428,7 +416,7 @@ function openDealForm(id){
     content.innerHTML=`
         <div class="flex-between mb-3"><h3 class="font-bold">${d?'Edit':'New'} Deal</h3><button onclick="closeModal()" style="background:none;border:none;color:var(--text2);font-size:1.5rem;">×</button></div>
         <label>Customer</label><input type="text" id="dealCustomer" value="${data.customer}">
-        <label class="mt-2">Device</label><input type="text" id="dealDevice" value="${data.device}" placeholder="e.g., iPhone 11 Pro Max 64GB">
+        <label class="mt-2">Device</label><input type="text" id="dealDevice" value="${data.device}">
         <div class="grid-2 mt-2"><div><label>Buy Price</label><input type="number" id="dealBuy" value="${data.buyPrice}"></div><div><label>Sell Price</label><input type="number" id="dealSell" value="${data.sellPrice}"></div></div>
         <label class="mt-2">Status</label><select id="dealStatus">${['Pending','Closed','Failed','Returned'].map(s=>`<option ${data.status===s?'selected':''}>${s}</option>`).join('')}</select>
         <label class="mt-2">Date</label><input type="date" id="dealDate" value="${data.date}">
@@ -447,7 +435,6 @@ function saveDeal(id){
     saveData();closeModal();renderDeals();renderDashboard();toast('Deal saved');
 }
 
-// ==================== WEEKLY REVIEW ====================
 function renderReviews(){
     document.getElementById('reviewList').innerHTML=appData.reviews.length?appData.reviews.slice().reverse().map(r=>`
         <div class="card">
@@ -480,7 +467,6 @@ function saveReview(id){
     saveData();closeModal();renderReviews();toast('Review saved');
 }
 
-// ==================== EXPENSES ====================
 let expenseFilter='all';
 function filterExpenses(f){expenseFilter=f;renderExpenses();}
 function renderExpenses(){
@@ -488,9 +474,9 @@ function renderExpenses(){
     document.querySelectorAll('#expenseFilter .chip').forEach(c=>c.classList.remove('active'));
     const ac=document.querySelector(`#expenseFilter .chip[onclick="filterExpenses('${expenseFilter}')"]`);if(ac)ac.classList.add('active');
     document.getElementById('expenseList').innerHTML=filtered.length?filtered.map(e=>`
-        <div class="expense-row" onclick="openExpenseForm('${e.id}')">
-            <div class="flex-between"><span class="title">${e.description||e.category}</span><span class="text-red font-bold">-${fmt(e.amount)}</span></div>
-            <div class="meta">${e.category} · ${e.date?.slice(0,10)||''}</div>
+        <div class="row-item" onclick="openExpenseForm('${e.id}')">
+            <div class="flex-between"><span class="rt">${e.description||e.category}</span><span class="text-red font-bold">-${fmt(e.amount)}</span></div>
+            <div class="rm">${e.category} · ${e.date?.slice(0,10)||''}</div>
         </div>`).join(''):'<p class="text-gray text-xs text-center">No expenses</p>';
     const now=new Date();const tm=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
     const monthExp=appData.expenses.filter(e=>e.date&&e.date.startsWith(tm));
@@ -510,7 +496,7 @@ function openExpenseForm(id){
     const modal=document.getElementById('genericModal');const content=document.getElementById('genericModalContent');
     content.innerHTML=`
         <div class="flex-between mb-3"><h3 class="font-bold">${d?'Edit':'Log'} Expense</h3><button onclick="closeModal()" style="background:none;border:none;color:var(--text2);font-size:1.5rem;">×</button></div>
-        <label>Description</label><input type="text" id="expDesc" value="${data.description}" placeholder="e.g., Rice and water">
+        <label>Description</label><input type="text" id="expDesc" value="${data.description}">
         <label class="mt-2">Amount (₦)</label><input type="number" id="expAmount" value="${data.amount}">
         <label class="mt-2">Category</label><select id="expCat">${['food','transport','data','random'].map(c=>`<option ${data.category===c?'selected':''}>${c}</option>`).join('')}</select>
         <label class="mt-2">Date</label><input type="date" id="expDate" value="${data.date}">
@@ -526,75 +512,36 @@ function saveExpense(id){
     saveData();closeModal();renderExpenses();toast('Expense logged');
 }
 
-// ==================== CAPITAL ====================
 function renderCapital(){
     const c=appData.capital;
     document.getElementById('capitalNetWorth').textContent=fmt(getNetWorth());
     document.getElementById('capitalFields').innerHTML=Object.entries(c).map(([k,v])=>`<div class="flex-between text-sm mb-2"><span class="text-gray capitalize">${k.replace(/([A-Z])/g,' $1')}</span><span class="font-bold">${fmt(v)}</span></div>`).join('');
     document.getElementById('capitalEditFields').innerHTML=Object.entries(c).map(([k,v])=>`<label class="mt-1 capitalize">${k.replace(/([A-Z])/g,' $1')}</label><input type="number" id="cap_${k}" value="${v}">`).join('');
 }
-function toggleCapitalEdit(){
-    const v=document.getElementById('capitalView'),e=document.getElementById('capitalEdit'),b=document.getElementById('btnEditCapital');
-    if(e.style.display==='none'){v.style.display='none';e.style.display='block';b.textContent='Cancel';}else{v.style.display='block';e.style.display='none';b.textContent='Edit';renderCapital();}
-}
-function saveCapital(){
-    const c=appData.capital;Object.keys(c).forEach(k=>{c[k]=Number(document.getElementById('cap_'+k)?.value)||0;});
-    saveData();renderCapital();toggleCapitalEdit();toast('Capital updated');
-}
+function toggleCapitalEdit(){const v=document.getElementById('capitalView'),e=document.getElementById('capitalEdit'),b=document.getElementById('btnEditCapital');if(e.style.display==='none'){v.style.display='none';e.style.display='block';b.textContent='Cancel';}else{v.style.display='block';e.style.display='none';b.textContent='Edit';renderCapital();}}
+function saveCapital(){const c=appData.capital;Object.keys(c).forEach(k=>{c[k]=Number(document.getElementById('cap_'+k)?.value)||0;});saveData();renderCapital();toggleCapitalEdit();toast('Capital updated');}
 
-// ==================== ANALYTICS ====================
 function renderAnalytics(){
     const completed=appData.decisions.filter(d=>d.status!=='pending');
+    if(!completed.length){document.getElementById('analyticsContent').innerHTML='<p class="text-gray text-xs text-center">No data yet</p>';return;}
     const wins=completed.filter(d=>d.status==='successful'),losses=completed.filter(d=>d.status==='failed');
     const wr=completed.length?Math.round(wins.length/completed.length*100):0;
     const tp=wins.reduce((s,d)=>s+(d.actualProfit||0),0),tl=losses.reduce((s,d)=>s+(d.actualLoss||0),0);
     const best=[...wins].sort((a,b)=>(b.actualProfit||0)-(a.actualProfit||0))[0];
     const worst=[...losses].sort((a,b)=>(b.actualLoss||0)-(a.actualLoss||0))[0];
-    const totalExpenses=appData.expenses.reduce((s,e)=>s+e.amount,0);
-    const totalDeals=appData.deals.length;
-    const totalInventory=appData.inventory.filter(i=>i.status==='Sold').length;
     document.getElementById('analyticsContent').innerHTML=`
-        <div class="card"><span class="text-sm text-gray">MONTHLY CEO REVIEW</span>
-            <div class="stat-row mt-2">
-                <div class="stat"><div class="val">${completed.length}</div><div class="lbl">Decisions</div></div>
-                <div class="stat"><div class="val text-green">${wr}%</div><div class="lbl">Win Rate</div></div>
-                <div class="stat"><div class="val text-green">+${fmt(tp)}</div><div class="lbl">Profit</div></div>
-                <div class="stat"><div class="val text-red">-${fmt(tl)}</div><div class="lbl">Loss</div></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="stat-row">
-                <div class="stat"><div class="val">${totalDeals}</div><div class="lbl">Deals</div></div>
-                <div class="stat"><div class="val">${totalInventory}</div><div class="lbl">Sold</div></div>
-                <div class="stat"><div class="val text-red">${fmt(totalExpenses)}</div><div class="lbl">Expenses</div></div>
-                <div class="stat"><div class="val">${fmt(getNetWorth())}</div><div class="lbl">Net Worth</div></div>
-            </div>
-        </div>
-        ${best?`<div class="card"><span class="text-green text-xs font-bold">BEST DECISION</span><p class="font-bold text-sm">${best.title}</p><p class="text-green">+${fmt(best.actualProfit||0)}</p></div>`:''}
-        ${worst?`<div class="card"><span class="text-red text-xs font-bold">WORST DECISION</span><p class="font-bold text-sm">${worst.title}</p><p class="text-red">-${fmt(worst.actualLoss||0)}</p></div>`:''}
+        <div class="card"><span class="text-sm text-gray">CEO REVIEW</span><div class="stat-row mt-2"><div class="stat"><div class="val">${completed.length}</div><div class="lbl">Decisions</div></div><div class="stat"><div class="val text-green">${wr}%</div><div class="lbl">Win Rate</div></div><div class="stat"><div class="val text-green">+${fmt(tp)}</div><div class="lbl">Profit</div></div><div class="stat"><div class="val text-red">-${fmt(tl)}</div><div class="lbl">Loss</div></div></div></div>
+        ${best?`<div class="card"><span class="text-green text-xs font-bold">BEST</span><p class="font-bold text-sm">${best.title}</p><p class="text-green">+${fmt(best.actualProfit||0)}</p></div>`:''}
+        ${worst?`<div class="card"><span class="text-red text-xs font-bold">WORST</span><p class="font-bold text-sm">${worst.title}</p><p class="text-red">-${fmt(worst.actualLoss||0)}</p></div>`:''}
     `;
 }
 
-// ==================== SETTINGS ====================
-function renderSettings(){
-    const n=document.getElementById('backupNote');
-    if(!appData.lastBackup)n.textContent='⚠ No backup yet. Export your data.';
-    else{const d=Math.floor((Date.now()-new Date(appData.lastBackup).getTime())/86400000);n.textContent=d>7?`⚠ Last backup: ${d} days ago`:`✅ Backed up ${d} days ago`;}
-}
-function exportData(){
-    const b=new Blob([JSON.stringify(appData,null,2)],{type:'application/json'});
-    const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='labrahman_backup_'+new Date().toISOString().slice(0,10)+'.json';a.click();
-    appData.lastBackup=new Date().toISOString();saveData();renderSettings();toast('Exported');
-}
-function importData(e){
-    const f=e.target.files[0];if(!f)return;const r=new FileReader();
-    r.onload=function(ev){try{const d=JSON.parse(ev.target.result);if(d.capital&&d.decisions){if(confirm('Replace all data?')){appData=d;saveData();renderAll();toast('Imported');}}else toast('Invalid file');}catch(x){toast('Invalid file');}};
-    r.readAsText(f);e.target.value='';
-}
+function renderSettings(){const n=document.getElementById('backupNote');if(!appData.lastBackup)n.textContent='⚠ No backup yet.';else{const d=Math.floor((Date.now()-new Date(appData.lastBackup).getTime())/86400000);n.textContent=d>7?`⚠ Last backup: ${d} days ago`:`✅ Backed up ${d} days ago`;}}
+function exportData(){const b=new Blob([JSON.stringify(appData,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='labrahman_backup_'+new Date().toISOString().slice(0,10)+'.json';a.click();appData.lastBackup=new Date().toISOString();saveData();renderSettings();toast('Exported');}
+function importData(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){try{const d=JSON.parse(ev.target.result);if(d.capital&&d.decisions){if(confirm('Replace all data?')){appData=d;saveData();renderAll();toast('Imported');}}else toast('Invalid');}catch(x){toast('Invalid');}};r.readAsText(f);e.target.value='';}
 function resetAll(){if(confirm('Delete ALL data?')){appData={capital:{cash:0,emergencyFund:0,inventoryValue:0,receivables:0,payables:0},zubi:{balance:0,monthly:20000,payout:200000,payoutMonth:'August 2026'},decisions:[],inventory:[],deals:[],reviews:[],expenses:[],lastBackup:null};saveData();renderAll();toast('Reset');}}
 function renderAll(){renderDashboard();renderDecisions();renderInventory();renderDeals();renderReviews();renderExpenses();renderCapital();renderAnalytics();renderSettings();}
 
-// ==================== INIT ====================
 loadData();renderAll();showPage('dashboard');
 </script>
 </body>
